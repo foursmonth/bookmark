@@ -1,17 +1,16 @@
 <template>
-  <Content/>
+  <BookMarks />
 </template>
 
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component';
-import Content from './components/Content.vue'
-
+import BookMarks from '@/components/BookMarks.vue'
 @Options({
   components: {
-    Content,
+    BookMarks
   },
 })
-export default class App extends Vue {}
+export default class App extends Vue { }
 </script>
 
 <style>
