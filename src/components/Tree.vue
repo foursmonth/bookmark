@@ -51,9 +51,7 @@ function clickAction(node: TreeNode) {
     if (node.isExpand) {
       node.isExpand = false;
       if (isShouldDefaultExpand(node.deep, props.setting.expandedDeep)) {
-        // if (!props.setting.defaultUnExpandId) props.setting.defaultUnExpandId = new Set();
         props.setting.defaultUnExpandId.push(node.id)
-        console.log(JSON.stringify(props.setting.defaultUnExpandId))
       } else {
         deleteElement(props.setting.defaultExpandId,node.id)
       }
@@ -62,9 +60,7 @@ function clickAction(node: TreeNode) {
       if (isShouldDefaultExpand(node.deep, props.setting.expandedDeep)) {
         deleteElement(props.setting.defaultUnExpandId,node.id)
       } else {
-        // if (!props.setting.defaultExpandId) props.setting.defaultExpandId = new Set();
         props.setting.defaultExpandId.push(node.id)
-        console.log(JSON.stringify(props.setting.defaultExpandId))
       }
     }
   }

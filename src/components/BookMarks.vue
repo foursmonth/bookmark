@@ -110,8 +110,6 @@ function loadExpandSetting() {
   }
 }
 function expandBySetting(data: TreeNode) {
-  console.log(setting.defaultExpandId);
-  console.log(setting.defaultUnExpandId);
   if (setting.defaultExpandId.indexOf(data.id) != -1) {
     data.isExpand = true;
   } else if (setting.defaultUnExpandId.indexOf(data.id) != -1) {
@@ -119,7 +117,6 @@ function expandBySetting(data: TreeNode) {
   } else {
     data.isExpand = isShouldDefaultExpand(data.deep, setting.expandedDeep);
   }
-  console.log(data.title, data.isExpand)
   if (!data.isLeaf) {
     for (let i = 0; i < data.childrens.length; ++i) {
       expandBySetting(data.childrens[i])
@@ -154,7 +151,6 @@ function buildTreeOption(rowData: ChromeTreeNode, deep: number): TreeNode {
 }
 function getChromeLocalStorageData(value: { [key: string]: any; }) {
   let storageSetting: Setting = JSON.parse(value['setting'] || '{}');
-  console.log(JSON.stringify(storageSetting))
   if (storageSetting) {
     setting.showColumns = storageSetting.showColumns || 4;
     setting.expandedDeep = storageSetting.expandedDeep || 4;
@@ -162,7 +158,6 @@ function getChromeLocalStorageData(value: { [key: string]: any; }) {
     setting.defaultUnExpandId = storageSetting.defaultUnExpandId || []
     dataStatus.value.setting = true
   }
-  console.log(JSON.stringify(setting))
 }
 function getChromeData() {
   chrome.bookmarks.getTree(getChromeBookMarksData);
@@ -184,7 +179,6 @@ function saveSetting() {
     findExistsIds(data.value[i], newDefaultUnExpandId, setting.defaultUnExpandId)
   }
   chrome.storage.local.set({ 'setting': JSON.stringify(setting) })
-  console.log('save', JSON.stringify(setting.defaultExpandId), JSON.stringify(setting.defaultUnExpandId))
 }
 function deleteSetting() {
   chrome.storage.local.clear()
