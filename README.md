@@ -1,19 +1,9 @@
-# bookmark3
+# bookmark
 
-## Project setup
-```
-yarn install
-```
-
-### Compiles and hot-reloads for development
-```
-yarn serve
-```
-
-### Compiles and minifies for production
+### 编译
 ```
 yarn build
 ```
+### 
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+打包后的dist/目录导入 chrome 插件
