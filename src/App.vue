@@ -1,13 +1,20 @@
 <template>
-  <BookMarks />
+  <n-dialog-provider>
+    <n-message-provider>
+      <BookMarks />
+    </n-message-provider>
+  </n-dialog-provider>
 </template>
 
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component';
+import { NDialogProvider, NMessageProvider } from 'naive-ui';
 import BookMarks from '@/components/BookMarks.vue'
 @Options({
   components: {
-    BookMarks
+    BookMarks,
+    NDialogProvider,
+    NMessageProvider
   },
 })
 export default class App extends Vue { }

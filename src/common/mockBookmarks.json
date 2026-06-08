@@ -1,0 +1,126 @@
+[
+  {
+    "dateAdded": 1704067200000,
+    "id": "0",
+    "title": "",
+    "children": [
+      {
+        "dateAdded": 1704067200000,
+        "id": "1",
+        "title": "书签栏",
+        "children": [
+          {
+            "dateAdded": 1704067200000,
+            "id": "10",
+            "title": "开发工具",
+            "parentId": "1",
+            "index": 0,
+            "dateGroupModified": 1704067200000,
+            "children": [
+              {
+                "dateAdded": 1704067200000,
+                "id": "100",
+                "title": "GitHub",
+                "url": "https://github.com",
+                "parentId": "10",
+                "index": 0
+              },
+              {
+                "dateAdded": 1704067200000,
+                "id": "101",
+                "title": "Stack Overflow",
+                "url": "https://stackoverflow.com",
+                "parentId": "10",
+                "index": 1
+              }
+            ]
+          },
+          {
+            "dateAdded": 1704067200000,
+            "id": "11",
+            "title": "前端资源",
+            "parentId": "1",
+            "index": 1,
+            "dateGroupModified": 1704067200000,
+            "children": [
+              {
+                "dateAdded": 1704067200000,
+                "id": "110",
+                "title": "MDN",
+                "url": "https://developer.mozilla.org",
+                "parentId": "11",
+                "index": 0
+              },
+              {
+                "dateAdded": 1704067200000,
+                "id": "111",
+                "title": "Vue.js",
+                "url": "https://vuejs.org",
+                "parentId": "11",
+                "index": 1
+              }
+            ]
+          },
+          {
+            "dateAdded": 1704067200000,
+            "id": "12",
+            "title": "社区论坛",
+            "parentId": "1",
+            "index": 2,
+            "dateGroupModified": 1704067200000,
+            "children": [
+              {
+                "dateAdded": 1704067200000,
+                "id": "120",
+                "title": "掘金",
+                "url": "https://juejin.cn",
+                "parentId": "12",
+                "index": 0
+              },
+              {
+                "dateAdded": 1704067200000,
+                "id": "121",
+                "title": "V2EX",
+                "url": "https://v2ex.com",
+                "parentId": "12",
+                "index": 1
+              }
+            ]
+          },
+          {
+            "dateAdded": 1704067200000,
+            "id": "13",
+            "title": "学习资源",
+            "parentId": "1",
+            "index": 3,
+            "dateGroupModified": 1704067200000,
+            "children": [
+              {
+                "dateAdded": 1704067200000,
+                "id": "130",
+                "title": "YouTube",
+                "url": "https://youtube.com",
+                "parentId": "13",
+                "index": 0
+              },
+              {
+                "dateAdded": 1704067200000,
+                "id": "131",
+                "title": "Bilibili",
+                "url": "https://bilibili.com",
+                "parentId": "13",
+                "index": 1
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "dateAdded": 1704067200000,
+        "id": "2",
+        "title": "其他书签",
+        "children": []
+      }
+    ]
+  }
+]

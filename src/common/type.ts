@@ -1,18 +1,111 @@
-export interface Setting {
-    showColumns: number,
-    expandedDeep: number,
-    defaultExpandId: string[],
-    defaultUnExpandId: string[]
-}
+import { DEFAULT_SHOW_COLUMNS, DEFAULT_EXPAND_DEEP } from './constants'
 
 export interface TreeNode {
-    id: string,
-    title: string,
-    url: string,
-    childrens: TreeNode[],
-    isLeaf: boolean,
-    isExpand: boolean,
-    icon: string,
-    deep: number,
-    isSearchResult: boolean,
+    id: string
+    parentId: string
+    title: string
+    url: string
+    index: number
+    children: TreeNode[]
+    isLeaf: boolean
+    isExpand: boolean
+    isSearchResult: boolean
+    icon: string
+    deep: number
 }
+
+export interface FlatNode {
+    id: string
+    parentId: string
+    title: string
+    url: string
+    deep: number
+    isLeaf: boolean
+    isExpand: boolean
+    isSearchResult: boolean
+    icon: string
+    childCount: number
+    flatIndex: number
+    raw: TreeNode
+    isFirstChild: boolean
+    isLastChild: boolean
+    ancestorLastFlags: boolean[]
+}
+
+export interface ColumnData {
+    rootId: string
+    flatList: FlatNode[]
+    treeNode: TreeNode
+}
+
+export type DropPosition = 'inside' | 'below'
+export type DropType = 'node' | 'column-end'
+
+export interface DropTarget {
+    type: DropType
+    id?: string
+    position?: DropPosition
+    colId?: string
+}
+
+export interface DragState {
+    active: boolean
+    cancelled: boolean
+    draggedId: string
+    draggedNode: FlatNode | null
+    childIds: Set<string>
+    dropTarget: DropTarget | null
+}
+
+export class BookmarkSetting {
+    editMode: boolean
+    showColumns: number
+    expandDeep: number
+    expandIds: Set<string>
+    unExpandIds: Set<string>
+
+    constructor(
+        showColumns: number | null | undefined,
+        expandDeep: number | null | undefined,
+        unExpandId: Set<string> | null | undefined,
+        expandIds: Set<string> | null | undefined
+    ) {
+        this.showColumns = showColumns && showColumns > 0 ? showColumns : DEFAULT_SHOW_COLUMNS
+        this.expandDeep = expandDeep && expandDeep >= 0 ? expandDeep : DEFAULT_EXPAND_DEEP
+        this.expandIds = expandIds || new Set()
+        this.unExpandIds = unExpandId || new Set()
+        this.editMode = false
+    }
+
+    toJSON() {
+        return {
+            showColumns: this.showColumns,
+            expandIds: Array.from(this.expandIds),
+            unExpandId: Array.from(this.unExpandIds)
+        }
+    }
+
+    static fromJSON(jsonString: string): BookmarkSetting | null {
+        try {
+            const jsonObject = JSON.parse(jsonString)
+            return new BookmarkSetting(
+                jsonObject.showColumns,
+                jsonObject.expandDeep,
+                new Set(jsonObject.expandIds),
+                new Set(jsonObject.unExpandId)
+            )
+        } catch (err) {
+            console.error('parse BookmarkSetting error:', err)
+            return null
+        }
+    }
+
+    copy(other: BookmarkSetting) {
+        this.showColumns = other.showColumns
+        this.expandDeep = other.expandDeep
+        this.expandIds = other.expandIds
+        this.unExpandIds = other.unExpandIds
+    }
+}
+
+export type ChromeTreeNode = chrome.bookmarks.BookmarkTreeNode
