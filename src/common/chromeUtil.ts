@@ -94,17 +94,22 @@ export function getLocalStorage(key: string): Promise<string> {
             return (value[key] as string) || '{}'
         })
     }
-    return Promise.resolve('{}')
+    return Promise.resolve(localStorage.getItem(key) || '{}')
 }
 
 export function setLocalStorage(key: string, value: unknown): void {
+    const data = JSON.stringify(value)
     if (isPord()) {
-        chrome.storage.local.set({ [key]: JSON.stringify(value) })
+        chrome.storage.local.set({ [key]: data })
+    } else {
+        localStorage.setItem(key, data)
     }
 }
 
 export function clearLocalStorage(): void {
     if (isPord()) {
         chrome.storage.local.clear()
+    } else {
+        localStorage.clear()
     }
 }

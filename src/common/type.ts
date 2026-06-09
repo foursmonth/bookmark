@@ -102,6 +102,7 @@ export class BookmarkSetting {
     }
 
     copy(other: BookmarkSetting) {
+        this.editMode = other.editMode
         this.showColumns = other.showColumns
         this.expandDeep = other.expandDeep
         this.expandIds = other.expandIds
