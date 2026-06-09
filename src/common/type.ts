@@ -38,15 +38,11 @@ export interface ColumnData {
     treeNode: TreeNode
 }
 
-export type DropPosition = 'inside' | 'below'
-export type DropType = 'node' | 'column-end'
+export type DropPosition = 'above' | 'inside' | 'below'
 
-export interface DropTarget {
-    type: DropType
-    id?: string
-    position?: DropPosition
-    colId?: string
-}
+export type DropTarget =
+    | { type: 'node'; id: string; position: DropPosition; colId: string }
+    | { type: 'column-end'; colId: string }
 
 export interface DragState {
     active: boolean
