@@ -142,7 +142,7 @@
           Title
         </n-grid-item>
         <n-grid-item span="7">
-          <n-input v-model:value="editData.title" />
+          <n-input ref="editTitleInputRef" v-model:value="editData.title" />
         </n-grid-item>
         <template v-if="editData.isLeaf">
           <n-grid-item span="1" style="align-content: center;">
@@ -206,7 +206,7 @@ import { getBookmarkTree, getLocalStorage, setLocalStorage, clearLocalStorage, u
 import { intersectionToTarget, debounce } from '@/common/util'
 import { NGrid, NGridItem, NSpace, NDrawer, NDrawerContent, NButton, NIcon, NInputNumber, NInput, NSwitch, NModal, NDropdown, NCollapseTransition, NAlert } from 'naive-ui'
 import { useDialog, useMessage } from 'naive-ui'
-import { onMounted, onBeforeUnmount, ref, reactive, computed, watch } from 'vue'
+import { onMounted, onBeforeUnmount, ref, reactive, computed, watch, nextTick } from 'vue'
 import { SettingsOutline, Search } from '@vicons/ionicons5'
 import { VueDraggable } from 'vue-draggable-plus'
 import type { SortableEvent } from 'sortablejs'
@@ -232,6 +232,7 @@ const uiState = reactive({
 const searchQuery = ref('')
 
 const editData = ref<FlatNode | null>(null)
+const editTitleInputRef = ref<any>(null)
 const addData = reactive({
   parentId: '',
   title: '',
@@ -371,6 +372,9 @@ function openAddDialog(parentId: string, defaultUrl: string | undefined, index: 
 function handleEdit(node: FlatNode) {
   uiState.editModal = true
   editData.value = { ...node }
+  nextTick(() => {
+    editTitleInputRef.value?.focus()
+  })
 }
 
 function handleToggle() {
