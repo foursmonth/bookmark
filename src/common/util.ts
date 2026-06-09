@@ -1,5 +1,8 @@
 export function intersectionToTarget<T>(target: Set<T>, source: Set<T> | T[]): void {
-    source.forEach(item => target.delete(item))
+    const sourceSet = source instanceof Set ? source : new Set(source)
+    target.forEach(item => {
+        if (!sourceSet.has(item)) target.delete(item)
+    })
 }
 
 export function mergeToTarget<T>(target: Set<T>, source: Set<T> | T[]): void {

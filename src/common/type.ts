@@ -80,6 +80,7 @@ export class BookmarkSetting {
     toJSON() {
         return {
             showColumns: this.showColumns,
+            expandDeep: this.expandDeep,
             expandIds: Array.from(this.expandIds),
             unExpandId: Array.from(this.unExpandIds)
         }
