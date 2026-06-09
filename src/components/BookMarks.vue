@@ -111,7 +111,7 @@
     </n-grid>
   </div>
 
-  <n-drawer v-model:show="uiState.settingDrawer" :width="500">
+  <n-drawer v-model:show="uiState.settingDrawer" :width="500" @update:show="onSettingDrawerChange">
     <n-drawer-content>
       <template #header>
         设置
@@ -134,14 +134,6 @@
           </n-grid-item>
         </n-grid>
       </n-space>
-      <template #footer>
-        <n-button @click="clearLocalStorage">
-          清除配置
-        </n-button>
-        <n-button @click="saveSetting">
-          保存
-        </n-button>
-      </template>
     </n-drawer-content>
   </n-drawer>
 
@@ -212,7 +204,7 @@ import FlatNodeRow from '@/components/FlatNodeRow.vue'
 import { BookmarkSetting, TreeNode, ChromeTreeNode, FlatNode, ColumnData, DropPosition, DropType, DropTarget, DragState } from '@/common/type'
 import { TREE_INDENT_WIDTH, DROP_ZONE_COLUMN_RATIO, DROP_POSITION_Y_RATIO, MAX_DRAG_PREVIEW_CHILDREN, DRAG_PREVIEW_INDENT_WIDTH } from '@/common/constants'
 import { getTreeNodeIds, buildTreeNode, dfsSearch, flattenTree, isDescendant, getVisibleChildren } from '@/common/treeUtil'
-import { getBookmarkTree, getLocalStorage, setLocalStorage, clearLocalStorage, updateBookmark, removeBookmark, createBookmark, moveBookmark } from '@/common/chromeUtil'
+import { getBookmarkTree, getLocalStorage, setLocalStorage, updateBookmark, removeBookmark, createBookmark, moveBookmark } from '@/common/chromeUtil'
 import { intersectionToTarget, debounce } from '@/common/util'
 import { NGrid, NGridItem, NSpace, NDrawer, NDrawerContent, NButton, NIcon, NInputNumber, NInput, NSwitch, NModal, NDropdown, NCollapseTransition, NAlert, NSpin, NEmpty } from 'naive-ui'
 import type { InputInst } from 'naive-ui'
@@ -535,9 +527,10 @@ function persistSetting() {
   setLocalStorage('bookmarkSetting', bookmarkSetting)
 }
 
-function saveSetting() {
-  persistSetting()
-  uiState.settingDrawer = false
+function onSettingDrawerChange(show: boolean) {
+  if (!show) {
+    persistSetting()
+  }
 }
 
 const dragState = reactive<DragState>({
