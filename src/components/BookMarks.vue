@@ -30,7 +30,17 @@
     </n-alert>
   </n-collapse-transition>
   
-  <div v-if="loadingState.bookmarks && loadingState.settings" class="bookmark-grid-container">
+  <n-spin v-if="!loadingState.bookmarks || !loadingState.settings" style="display: flex; justify-content: center; margin-top: 80px;" />
+
+  <template v-else-if="columns.length === 0">
+    <n-empty description="暂无书签" style="margin-top: 80px;" />
+  </template>
+
+  <template v-else-if="searchQuery && !hasSearchResult">
+    <n-empty description="未找到匹配的书签" style="margin-top: 80px;" />
+  </template>
+
+  <div v-else class="bookmark-grid-container">
     <n-grid :cols="bookmarkSetting.showColumns" :x-gap="16" :y-gap="16">
       <n-grid-item v-for="col in columns" :key="col.rootId" span="1">
         <div 
@@ -204,7 +214,8 @@ import { TREE_INDENT_WIDTH, DROP_ZONE_COLUMN_RATIO, DROP_POSITION_Y_RATIO, MAX_D
 import { getTreeNodeIds, buildTreeNode, dfsSearch, flattenTree, isDescendant, getVisibleChildren } from '@/common/treeUtil'
 import { getBookmarkTree, getLocalStorage, setLocalStorage, clearLocalStorage, updateBookmark, removeBookmark, createBookmark, moveBookmark } from '@/common/chromeUtil'
 import { intersectionToTarget, debounce } from '@/common/util'
-import { NGrid, NGridItem, NSpace, NDrawer, NDrawerContent, NButton, NIcon, NInputNumber, NInput, NSwitch, NModal, NDropdown, NCollapseTransition, NAlert } from 'naive-ui'
+import { NGrid, NGridItem, NSpace, NDrawer, NDrawerContent, NButton, NIcon, NInputNumber, NInput, NSwitch, NModal, NDropdown, NCollapseTransition, NAlert, NSpin, NEmpty } from 'naive-ui'
+import type { InputInst } from 'naive-ui'
 import { useDialog, useMessage } from 'naive-ui'
 import { onMounted, onBeforeUnmount, ref, reactive, computed, watch, nextTick } from 'vue'
 import { SettingsOutline, Search } from '@vicons/ionicons5'
@@ -229,10 +240,31 @@ const uiState = reactive({
   addModal: false
 })
 
+const editingDialogOpen = ref(false)
+
+watch(bookmarkSetting.editMode, (newVal, oldVal) => {
+  if (newVal && !oldVal && !editingDialogOpen.value) {
+    editingDialogOpen.value = true
+    dialog.warning({
+      title: '进入编辑模式',
+      content: '编辑模式下可右键编辑、拖拽排序书签。确认进入？',
+      positiveText: '确认',
+      negativeText: '取消',
+      onPositiveClick: () => {
+        editingDialogOpen.value = false
+      },
+      onNegativeClick: () => {
+        bookmarkSetting.editMode = false
+        editingDialogOpen.value = false
+      }
+    })
+  }
+})
+
 const searchQuery = ref('')
 
 const editData = ref<FlatNode | null>(null)
-const editTitleInputRef = ref<any>(null)
+const editTitleInputRef = ref<InputInst | null>(null)
 const addData = reactive({
   parentId: '',
   title: '',
@@ -250,6 +282,11 @@ const contextMenuData = reactive({
 const columns = ref<ColumnData[]>([])
 const flatNodeIndex = ref<Map<string, { node: FlatNode; col: ColumnData }>>(new Map())
 
+const hasSearchResult = computed(() => {
+  if (!searchQuery.value) return true
+  return columns.value.some(col => col.flatList.some(n => n.isSearchResult))
+})
+
 function rebuildColumns() {
   columns.value = data.value.map(treeNode => ({
     rootId: treeNode.id,
@@ -266,6 +303,23 @@ function rebuildColumns() {
   }
   flatNodeIndex.value = index
 }
+
+watch(bookmarkSetting.editMode, (newVal, oldVal) => {
+  if (newVal && !oldVal && dialog) {
+    dialog.warning({
+      title: '进入编辑模式',
+      content: '编辑模式下可右键编辑、拖拽排序书签。确认进入？',
+      positiveText: '确认',
+      negativeText: '取消',
+      onPositiveClick: () => {
+        // proceed
+      },
+      onNegativeClick: () => {
+        bookmarkSetting.editMode = false
+      }
+    })
+  }
+})
 
 watch(data, rebuildColumns, { deep: true })
 
@@ -371,7 +425,7 @@ function openAddDialog(parentId: string, defaultUrl: string | undefined, index: 
 
 function handleEdit(node: FlatNode) {
   uiState.editModal = true
-  editData.value = { ...node }
+  editData.value = JSON.parse(JSON.stringify(node))
   nextTick(() => {
     editTitleInputRef.value?.focus()
   })
@@ -379,6 +433,7 @@ function handleEdit(node: FlatNode) {
 
 function handleToggle() {
   rebuildColumns()
+  persistSetting()
 }
 
 function refreshData() {
@@ -471,13 +526,17 @@ function getChromeData() {
     .then(treeNodes => handleBookMarksData(treeNodes, bookmarkSetting))
 }
 
-function saveSetting() {
+function persistSetting() {
   data.value.forEach(node => {
     const existsIds = getTreeNodeIds(node)
     intersectionToTarget(bookmarkSetting.expandIds, existsIds)
     intersectionToTarget(bookmarkSetting.unExpandIds, existsIds)
   })
   setLocalStorage('bookmarkSetting', bookmarkSetting)
+}
+
+function saveSetting() {
+  persistSetting()
   uiState.settingDrawer = false
 }
 
@@ -623,7 +682,10 @@ function moveToColumnEdge(draggedId: string, dropTarget: DropTarget) {
   const newIndex = colIndex + 1
 
   moveBookmark(draggedId, parentId, newIndex)
-    .then(() => refreshData())
+    .then(() => {
+      refreshData()
+      persistSetting()
+    })
     .catch((error) => {
       console.error('Failed to move bookmark:', error)
       message.error(`移动失败: ${error instanceof Error ? error.message : '未知错误'}`)
@@ -765,7 +827,7 @@ function onDragEnd(evt: SortableEvent) {
   // No valid drop target → append to end
   if (!dropTarget || dropTarget.type !== 'node') {
     moveBookmark(draggedId, targetCol.treeNode.id, targetCol.treeNode.children.length)
-      .then(() => { refreshData() })
+      .then(() => { refreshData(); persistSetting() })
       .catch((error) => {
         console.error('Failed to move bookmark:', error)
         message.error(`移动失败: ${error instanceof Error ? error.message : '未知错误'}`)
@@ -802,6 +864,7 @@ function onDragEnd(evt: SortableEvent) {
   moveBookmark(draggedId, newParentId, newIndex)
     .then(() => {
       refreshData()
+      persistSetting()
     })
     .catch((error) => {
       console.error('Failed to move bookmark:', error)
