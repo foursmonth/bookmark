@@ -2,7 +2,7 @@ import { ChromeTreeNode, BookmarkSetting, TreeNode, FlatNode } from '@/common/ty
 import { getIconUrl } from '@/common/chromeUtil'
 
 export function getTreeNodeIds(root: TreeNode): string[] {
-    const ids: string[] = []
+    const ids: string[] = [root.id]  // 包含根节点本身
     root.children.forEach(son => ids.push(...getTreeNodeIds(son)))
     return ids
 }

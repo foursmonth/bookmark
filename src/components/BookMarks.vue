@@ -518,11 +518,16 @@ function getChromeData() {
 }
 
 function persistSetting() {
+  // 收集所有存在的节点 ID
+  const allExistsIds = new Set<string>()
   data.value.forEach(node => {
-    const existsIds = getTreeNodeIds(node)
-    intersectionToTarget(bookmarkSetting.expandIds, existsIds)
-    intersectionToTarget(bookmarkSetting.unExpandIds, existsIds)
+    getTreeNodeIds(node).forEach(id => allExistsIds.add(id))
   })
+  
+  // 清理不存在的 ID
+  intersectionToTarget(bookmarkSetting.expandIds, allExistsIds)
+  intersectionToTarget(bookmarkSetting.unExpandIds, allExistsIds)
+  
   setLocalStorage('bookmarkSetting', bookmarkSetting)
 }
 
@@ -1054,7 +1059,7 @@ onBeforeUnmount(() => {
   height: 2px;
   background: #1890ff;
   border-radius: 1px;
-  margin: 0 4px 0;
+  margin: 0 4px 0 0;
 }
 
 /* Column drop zones - positioned at left/right edges */

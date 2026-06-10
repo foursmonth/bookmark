@@ -54,7 +54,7 @@
         }"
         @click="handleClick"
       >
-        <n-ellipsis :tooltip="true">
+        <n-ellipsis :tooltip="{ delay: 500 }">
           {{ flatNode.title }}
         </n-ellipsis>
       </n-button>
@@ -104,9 +104,9 @@ function toggleExpand() {
 
   const node = props.flatNode.raw
   if (isShouldDefaultExpand(props.bookmarkSetting, node)) {
-    node.isExpand ? props.bookmarkSetting.unExpandIds.delete(node.id) : props.bookmarkSetting.expandIds.add(node.id)
+    node.isExpand ? props.bookmarkSetting.unExpandIds.delete(node.id) : props.bookmarkSetting.unExpandIds.add(node.id)
   } else {
-    node.isExpand ? props.bookmarkSetting.expandIds.delete(node.id) : props.bookmarkSetting.unExpandIds.add(node.id)
+    node.isExpand ? props.bookmarkSetting.expandIds.delete(node.id) : props.bookmarkSetting.expandIds.add(node.id)
   }
 
   emit('toggle', props.flatNode)
@@ -142,6 +142,15 @@ function handleContextMenu(e: MouseEvent) {
 
 .content-area:hover {
   background-color: rgba(0, 0, 0, 0.04);
+}
+
+.content-area :deep(.n-button) {
+  width: 100%;
+  max-width: 100%;
+}
+
+.content-area :deep(.n-button:hover) {
+  background-color: transparent !important;
 }
 
 .indent-area {

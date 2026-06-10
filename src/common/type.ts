@@ -88,8 +88,8 @@ export class BookmarkSetting {
             return new BookmarkSetting(
                 jsonObject.showColumns,
                 jsonObject.expandDeep,
-                new Set(jsonObject.expandIds),
-                new Set(jsonObject.unExpandId)
+                new Set(jsonObject.unExpandId),   // unExpandId → 第3个参数
+                new Set(jsonObject.expandIds)    // expandIds → 第4个参数
             )
         } catch (err) {
             console.error('parse BookmarkSetting error:', err)

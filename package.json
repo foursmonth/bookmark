@@ -4,17 +4,19 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build"
+    "build": "NODE_NO_WARNINGS=1 vue-cli-service build"
   },
   "dependencies": {
     "@types/chrome": "^0.0.210",
     "@vicons/ionicons5": "^0.12.0",
+    "caniuse-lite": "^1.0.30001797",
     "copy-webpack-plugin": "^11.0.0",
     "core-js": "^3.8.3",
     "mockjs": "^1.1.0",
     "naive-ui": "^2.34.3",
     "vue": "^3.2.13",
-    "vue-class-component": "^8.0.0-0"
+    "vue-class-component": "^8.0.0-0",
+    "vue-draggable-plus": "^0.6.1"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~5.0.0",

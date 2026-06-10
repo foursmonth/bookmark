@@ -1,6 +1,5 @@
 import { ChromeTreeNode } from '@/common/type'
 import { isPord } from '@/common/envUtil'
-import mockBookmarkData from '@/common/mockBookmarks.json'
 
 export function getIconUrl(pageUrl: string | undefined): string {
     if (!isPord() || !pageUrl) {
@@ -84,8 +83,10 @@ export function getBookmarkTree(): Promise<ChromeTreeNode[]> {
         return chrome.bookmarks.getTree()
     }
     
-    // 使用固定的 mock 数据
-    return Promise.resolve(mockBookmarkData as ChromeTreeNode[])
+    // 动态导入 mock 数据，生产环境不会打包
+    return import('@/common/mockBookmarks.json').then(module => {
+        return module.default as ChromeTreeNode[]
+    })
 }
 
 export function getLocalStorage(key: string): Promise<string> {

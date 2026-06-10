@@ -20,7 +20,7 @@
               {
                 "dateAdded": 1704067200000,
                 "id": "100",
-                "title": "GitHub",
+                "title": "GitHub - Where the world builds software. Millions of developers and companies build, ship, and maintain their software on GitHub",
                 "url": "https://github.com",
                 "parentId": "10",
                 "index": 0
@@ -28,10 +28,18 @@
               {
                 "dateAdded": 1704067200000,
                 "id": "101",
-                "title": "Stack Overflow",
+                "title": "短",
                 "url": "https://stackoverflow.com",
                 "parentId": "10",
                 "index": 1
+              },
+              {
+                "dateAdded": 1704067200000,
+                "id": "102",
+                "title": "这是一个非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常长的书签标题用来测试文字截断效果",
+                "url": "https://gitlab.com",
+                "parentId": "10",
+                "index": 2
               }
             ]
           },
@@ -46,7 +54,7 @@
               {
                 "dateAdded": 1704067200000,
                 "id": "110",
-                "title": "MDN",
+                "title": "MDN Web Docs - Resources for developers, by developers",
                 "url": "https://developer.mozilla.org",
                 "parentId": "11",
                 "index": 0
@@ -54,7 +62,7 @@
               {
                 "dateAdded": 1704067200000,
                 "id": "111",
-                "title": "Vue.js",
+                "title": "Vue",
                 "url": "https://vuejs.org",
                 "parentId": "11",
                 "index": 1
@@ -72,7 +80,7 @@
               {
                 "dateAdded": 1704067200000,
                 "id": "120",
-                "title": "掘金",
+                "title": "掘金 - 代码不止，掘金不停 - 一个帮助开发者成长的社区",
                 "url": "https://juejin.cn",
                 "parentId": "12",
                 "index": 0
@@ -98,7 +106,7 @@
               {
                 "dateAdded": 1704067200000,
                 "id": "130",
-                "title": "YouTube",
+                "title": "油管",
                 "url": "https://youtube.com",
                 "parentId": "13",
                 "index": 0
@@ -106,10 +114,78 @@
               {
                 "dateAdded": 1704067200000,
                 "id": "131",
-                "title": "Bilibili",
+                "title": "哔哩哔哩 (゜-゜)つロ 干杯~-bilibili - 国内知名的视频弹幕网站",
                 "url": "https://bilibili.com",
                 "parentId": "13",
                 "index": 1
+              }
+            ]
+          },
+          {
+            "dateAdded": 1704067200000,
+            "id": "14",
+            "title": "AI工具",
+            "parentId": "1",
+            "index": 4,
+            "dateGroupModified": 1704067200000,
+            "children": [
+              {
+                "dateAdded": 1704067200000,
+                "id": "140",
+                "title": "ChatGPT",
+                "url": "https://chat.openai.com",
+                "parentId": "14",
+                "index": 0
+              },
+              {
+                "dateAdded": 1704067200000,
+                "id": "141",
+                "title": "Claude - Anthropic's AI assistant for helpful, harmless, and honest conversations",
+                "url": "https://claude.ai",
+                "parentId": "14",
+                "index": 1
+              },
+              {
+                "dateAdded": 1704067200000,
+                "id": "142",
+                "title": "测试超长标题：人工智能(AI)正在改变我们的生活方式，从智能助手到自动驾驶，从医疗诊断到金融分析，AI技术正在各个领域发挥越来越重要的作用",
+                "url": "https://midjourney.com",
+                "parentId": "14",
+                "index": 2
+              }
+            ]
+          },
+          {
+            "dateAdded": 1704067200000,
+            "id": "15",
+            "title": "常用网站",
+            "parentId": "1",
+            "index": 5,
+            "dateGroupModified": 1704067200000,
+            "children": [
+              {
+                "dateAdded": 1704067200000,
+                "id": "150",
+                "title": "谷歌",
+                "url": "https://google.com",
+                "parentId": "15",
+                "index": 0
+              },
+              {
+                "dateAdded": 1704067200000,
+                "id": "151",
+                "title": "百度一下，你就知道 - 全球最大的中文搜索引擎",
+                "url": "https://baidu.com",
+                "parentId": "15",
+                "index": 1
+              },
+              {
+                "dateAdded": 1704067200000,
+                "id": "152",
+                "title": "知乎 - 有问题，就会有答案 - 中文互联网高质量的问答社区和创作者聚集的原创内容平台",
+                "url": "https://zhihu.com",
+                "parentId": "15",
+                "index": 2
               }
             ]
           }
