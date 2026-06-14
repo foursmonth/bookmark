@@ -13,16 +13,37 @@
 
 ## 安装
 
-1. 下载或克隆本项目
-2. 安装依赖并构建：
-   ```bash
-   yarn install
-   yarn build
-   ```
-3. 打开 Chrome，访问 `chrome://extensions`
-4. 开启「开发者模式」
-5. 点击「加载已解压的扩展程序」，选择项目的 `dist/` 目录
-6. 打开新标签页即可使用
+### 方式一：从 Releases 下载（推荐）
+
+1. 前往 [Releases](https://github.com/foursmonth/bookmark/releases) 页面
+2. 下载最新版本的 `bookmark-vX.X.X.zip`
+3. 解压到任意目录
+4. 打开 Chrome，访问 `chrome://extensions`
+5. 开启右上角「开发者模式」
+6. 点击「加载已解压的扩展程序」，选择解压后的目录
+7. 打开新标签页即可使用
+
+### 方式二：自行构建
+
+```bash
+# 克隆项目
+git clone https://github.com/foursmonth/bookmark.git
+cd bookmark
+
+# 安装依赖
+yarn install
+
+# 构建
+yarn build
+
+# 加载 dist/ 目录到 Chrome
+```
+
+### 更新版本
+
+1. 前往 [Releases](https://github.com/foursmonth/bookmark/releases) 下载新版本
+2. 解压覆盖旧文件（或解压到新目录）
+3. 在 `chrome://extensions` 页面点击扩展的刷新按钮
 
 ## 开发
 
