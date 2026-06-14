@@ -12,180 +12,1002 @@
           {
             "dateAdded": 1704067200000,
             "id": "10",
-            "title": "开发工具",
+            "title": "💼 工作办公",
             "parentId": "1",
             "index": 0,
             "dateGroupModified": 1704067200000,
             "children": [
               {
                 "dateAdded": 1704067200000,
-                "id": "100",
-                "title": "GitHub - Where the world builds software. Millions of developers and companies build, ship, and maintain their software on GitHub",
-                "url": "https://github.com",
+                "id": "11",
+                "title": "协同工具",
                 "parentId": "10",
-                "index": 0
+                "index": 0,
+                "dateGroupModified": 1704067200000,
+                "children": [
+                  {
+                    "dateAdded": 1704067200000,
+                    "id": "1000",
+                    "title": "飞书",
+                    "url": "https://feishu.cn",
+                    "parentId": "11",
+                    "index": 0
+                  },
+                  {
+                    "dateAdded": 1704067200000,
+                    "id": "1001",
+                    "title": "钉钉",
+                    "url": "https://dingtalk.com",
+                    "parentId": "11",
+                    "index": 1
+                  },
+                  {
+                    "dateAdded": 1704067200000,
+                    "id": "1002",
+                    "title": "企业微信",
+                    "url": "https://work.weixin.qq.com",
+                    "parentId": "11",
+                    "index": 2
+                  },
+                  {
+                    "dateAdded": 1704067200000,
+                    "id": "1003",
+                    "title": "Slack",
+                    "url": "https://slack.com",
+                    "parentId": "11",
+                    "index": 3
+                  },
+                  {
+                    "dateAdded": 1704067200000,
+                    "id": "1004",
+                    "title": "Discord",
+                    "url": "https://discord.com",
+                    "parentId": "11",
+                    "index": 4
+                  }
+                ]
+              },
+              {
+                "dateAdded": 1704067200000,
+                "id": "12",
+                "title": "文档工具",
+                "parentId": "10",
+                "index": 1,
+                "dateGroupModified": 1704067200000,
+                "children": [
+                  {
+                    "dateAdded": 1704067200000,
+                    "id": "1010",
+                    "title": "Notion",
+                    "url": "https://notion.so",
+                    "parentId": "12",
+                    "index": 0
+                  },
+                  {
+                    "dateAdded": 1704067200000,
+                    "id": "1011",
+                    "title": "语雀",
+                    "url": "https://yuque.com",
+                    "parentId": "12",
+                    "index": 1
+                  },
+                  {
+                    "dateAdded": 1704067200000,
+                    "id": "1012",
+                    "title": "印象笔记",
+                    "url": "https://yinxiang.com",
+                    "parentId": "12",
+                    "index": 2
+                  },
+                  {
+                    "dateAdded": 1704067200000,
+                    "id": "1013",
+                    "title": "石墨文档",
+                    "url": "https://shimo.im",
+                    "parentId": "12",
+                    "index": 3
+                  }
+                ]
+              },
+              {
+                "dateAdded": 1704067200000,
+                "id": "100",
+                "title": "腾讯会议",
+                "url": "https://meeting.tencent.com",
+                "parentId": "10",
+                "index": 2
               },
               {
                 "dateAdded": 1704067200000,
                 "id": "101",
-                "title": "短",
-                "url": "https://stackoverflow.com",
+                "title": "Zoom",
+                "url": "https://zoom.us",
                 "parentId": "10",
-                "index": 1
-              },
-              {
-                "dateAdded": 1704067200000,
-                "id": "102",
-                "title": "这是一个非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常长的书签标题用来测试文字截断效果",
-                "url": "https://gitlab.com",
-                "parentId": "10",
-                "index": 2
+                "index": 3
               }
             ]
           },
           {
             "dateAdded": 1704067200000,
-            "id": "11",
-            "title": "前端资源",
+            "id": "20",
+            "title": "💻 技术开发",
             "parentId": "1",
             "index": 1,
             "dateGroupModified": 1704067200000,
             "children": [
               {
                 "dateAdded": 1704067200000,
-                "id": "110",
-                "title": "MDN Web Docs - Resources for developers, by developers",
-                "url": "https://developer.mozilla.org",
-                "parentId": "11",
-                "index": 0
+                "id": "21",
+                "title": "前端框架",
+                "parentId": "20",
+                "index": 0,
+                "dateGroupModified": 1704067200000,
+                "children": [
+                  {
+                    "dateAdded": 1704067200000,
+                    "id": "2000",
+                    "title": "Vue.js",
+                    "url": "https://vuejs.org",
+                    "parentId": "21",
+                    "index": 0
+                  },
+                  {
+                    "dateAdded": 1704067200000,
+                    "id": "2001",
+                    "title": "React",
+                    "url": "https://react.dev",
+                    "parentId": "21",
+                    "index": 1
+                  },
+                  {
+                    "dateAdded": 1704067200000,
+                    "id": "2002",
+                    "title": "Svelte",
+                    "url": "https://svelte.dev",
+                    "parentId": "21",
+                    "index": 2
+                  },
+                  {
+                    "dateAdded": 1704067200000,
+                    "id": "2003",
+                    "title": "Angular",
+                    "url": "https://angular.io",
+                    "parentId": "21",
+                    "index": 3
+                  },
+                  {
+                    "dateAdded": 1704067200000,
+                    "id": "2004",
+                    "title": "Solid.js",
+                    "url": "https://solidjs.com",
+                    "parentId": "21",
+                    "index": 4
+                  },
+                  {
+                    "dateAdded": 1704067200000,
+                    "id": "2005",
+                    "title": "Nuxt.js",
+                    "url": "https://nuxt.com",
+                    "parentId": "21",
+                    "index": 5
+                  },
+                  {
+                    "dateAdded": 1704067200000,
+                    "id": "2006",
+                    "title": "Next.js",
+                    "url": "https://nextjs.org",
+                    "parentId": "21",
+                    "index": 6
+                  }
+                ]
               },
               {
                 "dateAdded": 1704067200000,
-                "id": "111",
-                "title": "Vue",
-                "url": "https://vuejs.org",
-                "parentId": "11",
-                "index": 1
+                "id": "22",
+                "title": "UI组件库",
+                "parentId": "20",
+                "index": 1,
+                "dateGroupModified": 1704067200000,
+                "children": [
+                  {
+                    "dateAdded": 1704067200000,
+                    "id": "2010",
+                    "title": "Element Plus",
+                    "url": "https://element-plus.org",
+                    "parentId": "22",
+                    "index": 0
+                  },
+                  {
+                    "dateAdded": 1704067200000,
+                    "id": "2011",
+                    "title": "Ant Design",
+                    "url": "https://ant.design",
+                    "parentId": "22",
+                    "index": 1
+                  },
+                  {
+                    "dateAdded": 1704067200000,
+                    "id": "2012",
+                    "title": "Naive UI",
+                    "url": "https://naiveui.com",
+                    "parentId": "22",
+                    "index": 2
+                  },
+                  {
+                    "dateAdded": 1704067200000,
+                    "id": "2013",
+                    "title": "Arco Design",
+                    "url": "https://arco.design",
+                    "parentId": "22",
+                    "index": 3
+                  },
+                  {
+                    "dateAdded": 1704067200000,
+                    "id": "2014",
+                    "title": "Vuetify",
+                    "url": "https://vuetifyjs.com",
+                    "parentId": "22",
+                    "index": 4
+                  }
+                ]
+              },
+              {
+                "dateAdded": 1704067200000,
+                "id": "23",
+                "title": "构建工具",
+                "parentId": "20",
+                "index": 2,
+                "dateGroupModified": 1704067200000,
+                "children": [
+                  {
+                    "dateAdded": 1704067200000,
+                    "id": "2020",
+                    "title": "Vite",
+                    "url": "https://vitejs.dev",
+                    "parentId": "23",
+                    "index": 0
+                  },
+                  {
+                    "dateAdded": 1704067200000,
+                    "id": "2021",
+                    "title": "Webpack",
+                    "url": "https://webpack.js.org",
+                    "parentId": "23",
+                    "index": 1
+                  },
+                  {
+                    "dateAdded": 1704067200000,
+                    "id": "2022",
+                    "title": "Rollup",
+                    "url": "https://rollupjs.org",
+                    "parentId": "23",
+                    "index": 2
+                  },
+                  {
+                    "dateAdded": 1704067200000,
+                    "id": "2023",
+                    "title": "esbuild",
+                    "url": "https://esbuild.github.io",
+                    "parentId": "23",
+                    "index": 3
+                  }
+                ]
+              },
+              {
+                "dateAdded": 1704067200000,
+                "id": "24",
+                "title": "工具库",
+                "parentId": "20",
+                "index": 3,
+                "dateGroupModified": 1704067200000,
+                "children": [
+                  {
+                    "dateAdded": 1704067200000,
+                    "id": "2030",
+                    "title": "Lodash",
+                    "url": "https://lodash.com",
+                    "parentId": "24",
+                    "index": 0
+                  },
+                  {
+                    "dateAdded": 1704067200000,
+                    "id": "2031",
+                    "title": "Day.js",
+                    "url": "https://day.js.org",
+                    "parentId": "24",
+                    "index": 1
+                  },
+                  {
+                    "dateAdded": 1704067200000,
+                    "id": "2032",
+                    "title": "Axios",
+                    "url": "https://axios-http.com",
+                    "parentId": "24",
+                    "index": 2
+                  },
+                  {
+                    "dateAdded": 1704067200000,
+                    "id": "2033",
+                    "title": "Ramda",
+                    "url": "https://ramdajs.com",
+                    "parentId": "24",
+                    "index": 3
+                  }
+                ]
+              },
+              {
+                "dateAdded": 1704067200000,
+                "id": "200",
+                "title": "GitHub",
+                "url": "https://github.com",
+                "parentId": "20",
+                "index": 4
+              },
+              {
+                "dateAdded": 1704067200000,
+                "id": "201",
+                "title": "Stack Overflow",
+                "url": "https://stackoverflow.com",
+                "parentId": "20",
+                "index": 5
+              },
+              {
+                "dateAdded": 1704067200000,
+                "id": "202",
+                "title": "CodePen",
+                "url": "https://codepen.io",
+                "parentId": "20",
+                "index": 6
+              },
+              {
+                "dateAdded": 1704067200000,
+                "id": "203",
+                "title": "JSFiddle",
+                "url": "https://jsfiddle.net",
+                "parentId": "20",
+                "index": 7
               }
             ]
           },
           {
             "dateAdded": 1704067200000,
-            "id": "12",
-            "title": "社区论坛",
+            "id": "30",
+            "title": "🎨 设计素材",
             "parentId": "1",
             "index": 2,
             "dateGroupModified": 1704067200000,
             "children": [
               {
                 "dateAdded": 1704067200000,
-                "id": "120",
-                "title": "掘金 - 代码不止，掘金不停 - 一个帮助开发者成长的社区",
-                "url": "https://juejin.cn",
-                "parentId": "12",
-                "index": 0
+                "id": "31",
+                "title": "图库资源",
+                "parentId": "30",
+                "index": 0,
+                "dateGroupModified": 1704067200000,
+                "children": [
+                  {
+                    "dateAdded": 1704067200000,
+                    "id": "3000",
+                    "title": "Unsplash",
+                    "url": "https://unsplash.com",
+                    "parentId": "31",
+                    "index": 0
+                  },
+                  {
+                    "dateAdded": 1704067200000,
+                    "id": "3001",
+                    "title": "Pexels",
+                    "url": "https://pexels.com",
+                    "parentId": "31",
+                    "index": 1
+                  },
+                  {
+                    "dateAdded": 1704067200000,
+                    "id": "3002",
+                    "title": "Pixabay",
+                    "url": "https://pixabay.com",
+                    "parentId": "31",
+                    "index": 2
+                  },
+                  {
+                    "dateAdded": 1704067200000,
+                    "id": "3003",
+                    "title": "Freepik",
+                    "url": "https://freepik.com",
+                    "parentId": "31",
+                    "index": 3
+                  }
+                ]
               },
               {
                 "dateAdded": 1704067200000,
-                "id": "121",
-                "title": "V2EX",
-                "url": "https://v2ex.com",
-                "parentId": "12",
-                "index": 1
+                "id": "32",
+                "title": "图标资源",
+                "parentId": "30",
+                "index": 1,
+                "dateGroupModified": 1704067200000,
+                "children": [
+                  {
+                    "dateAdded": 1704067200000,
+                    "id": "3010",
+                    "title": "Font Awesome",
+                    "url": "https://fontawesome.com",
+                    "parentId": "32",
+                    "index": 0
+                  },
+                  {
+                    "dateAdded": 1704067200000,
+                    "id": "3011",
+                    "title": "Iconfont",
+                    "url": "https://iconfont.cn",
+                    "parentId": "32",
+                    "index": 1
+                  },
+                  {
+                    "dateAdded": 1704067200000,
+                    "id": "3012",
+                    "title": "Heroicons",
+                    "url": "https://heroicons.com",
+                    "parentId": "32",
+                    "index": 2
+                  }
+                ]
+              },
+              {
+                "dateAdded": 1704067200000,
+                "id": "300",
+                "title": "Figma",
+                "url": "https://figma.com",
+                "parentId": "30",
+                "index": 2
+              },
+              {
+                "dateAdded": 1704067200000,
+                "id": "301",
+                "title": "Dribbble",
+                "url": "https://dribbble.com",
+                "parentId": "30",
+                "index": 3
+              },
+              {
+                "dateAdded": 1704067200000,
+                "id": "302",
+                "title": "Behance",
+                "url": "https://behance.net",
+                "parentId": "30",
+                "index": 4
+              },
+              {
+                "dateAdded": 1704067200000,
+                "id": "303",
+                "title": "Canva",
+                "url": "https://canva.com",
+                "parentId": "30",
+                "index": 5
               }
             ]
           },
           {
             "dateAdded": 1704067200000,
-            "id": "13",
-            "title": "学习资源",
+            "id": "40",
+            "title": "📊 数据分析",
             "parentId": "1",
             "index": 3,
             "dateGroupModified": 1704067200000,
             "children": [
               {
                 "dateAdded": 1704067200000,
-                "id": "130",
-                "title": "油管",
-                "url": "https://youtube.com",
-                "parentId": "13",
-                "index": 0
+                "id": "41",
+                "title": "可视化工具",
+                "parentId": "40",
+                "index": 0,
+                "dateGroupModified": 1704067200000,
+                "children": [
+                  {
+                    "dateAdded": 1704067200000,
+                    "id": "4000",
+                    "title": "ECharts",
+                    "url": "https://echarts.apache.org",
+                    "parentId": "41",
+                    "index": 0
+                  },
+                  {
+                    "dateAdded": 1704067200000,
+                    "id": "4001",
+                    "title": "D3.js",
+                    "url": "https://d3js.org",
+                    "parentId": "41",
+                    "index": 1
+                  },
+                  {
+                    "dateAdded": 1704067200000,
+                    "id": "4002",
+                    "title": "Chart.js",
+                    "url": "https://chartjs.org",
+                    "parentId": "41",
+                    "index": 2
+                  },
+                  {
+                    "dateAdded": 1704067200000,
+                    "id": "4003",
+                    "title": "Highcharts",
+                    "url": "https://highcharts.com",
+                    "parentId": "41",
+                    "index": 3
+                  },
+                  {
+                    "dateAdded": 1704067200000,
+                    "id": "4004",
+                    "title": "AntV G2",
+                    "url": "https://g2.antv.antgroup.com",
+                    "parentId": "41",
+                    "index": 4
+                  }
+                ]
               },
               {
                 "dateAdded": 1704067200000,
-                "id": "131",
-                "title": "哔哩哔哩 (゜-゜)つロ 干杯~-bilibili - 国内知名的视频弹幕网站",
-                "url": "https://bilibili.com",
-                "parentId": "13",
+                "id": "400",
+                "title": "Tableau Public",
+                "url": "https://public.tableau.com",
+                "parentId": "40",
                 "index": 1
+              },
+              {
+                "dateAdded": 1704067200000,
+                "id": "401",
+                "title": "GrowingIO",
+                "url": "https://growingio.com",
+                "parentId": "40",
+                "index": 2
+              },
+              {
+                "dateAdded": 1704067200000,
+                "id": "402",
+                "title": "神策数据",
+                "url": "https://sensorsdata.cn",
+                "parentId": "40",
+                "index": 3
               }
             ]
           },
           {
             "dateAdded": 1704067200000,
-            "id": "14",
-            "title": "AI工具",
+            "id": "50",
+            "title": "🎬 影音娱乐",
             "parentId": "1",
             "index": 4,
             "dateGroupModified": 1704067200000,
             "children": [
               {
                 "dateAdded": 1704067200000,
-                "id": "140",
-                "title": "ChatGPT",
-                "url": "https://chat.openai.com",
-                "parentId": "14",
-                "index": 0
+                "id": "51",
+                "title": "视频平台",
+                "parentId": "50",
+                "index": 0,
+                "dateGroupModified": 1704067200000,
+                "children": [
+                  {
+                    "dateAdded": 1704067200000,
+                    "id": "5000",
+                    "title": "B站",
+                    "url": "https://bilibili.com",
+                    "parentId": "51",
+                    "index": 0
+                  },
+                  {
+                    "dateAdded": 1704067200000,
+                    "id": "5001",
+                    "title": "YouTube",
+                    "url": "https://youtube.com",
+                    "parentId": "51",
+                    "index": 1
+                  },
+                  {
+                    "dateAdded": 1704067200000,
+                    "id": "5002",
+                    "title": "优酷",
+                    "url": "https://youku.com",
+                    "parentId": "51",
+                    "index": 2
+                  },
+                  {
+                    "dateAdded": 1704067200000,
+                    "id": "5003",
+                    "title": "爱奇艺",
+                    "url": "https://iqiyi.com",
+                    "parentId": "51",
+                    "index": 3
+                  },
+                  {
+                    "dateAdded": 1704067200000,
+                    "id": "5004",
+                    "title": "腾讯视频",
+                    "url": "https://v.qq.com",
+                    "parentId": "51",
+                    "index": 4
+                  }
+                ]
               },
               {
                 "dateAdded": 1704067200000,
-                "id": "141",
-                "title": "Claude - Anthropic's AI assistant for helpful, harmless, and honest conversations",
-                "url": "https://claude.ai",
-                "parentId": "14",
-                "index": 1
+                "id": "52",
+                "title": "音乐平台",
+                "parentId": "50",
+                "index": 1,
+                "dateGroupModified": 1704067200000,
+                "children": [
+                  {
+                    "dateAdded": 1704067200000,
+                    "id": "5010",
+                    "title": "网易云音乐",
+                    "url": "https://music.163.com",
+                    "parentId": "52",
+                    "index": 0
+                  },
+                  {
+                    "dateAdded": 1704067200000,
+                    "id": "5011",
+                    "title": "QQ音乐",
+                    "url": "https://y.qq.com",
+                    "parentId": "52",
+                    "index": 1
+                  },
+                  {
+                    "dateAdded": 1704067200000,
+                    "id": "5012",
+                    "title": "Spotify",
+                    "url": "https://spotify.com",
+                    "parentId": "52",
+                    "index": 2
+                  },
+                  {
+                    "dateAdded": 1704067200000,
+                    "id": "5013",
+                    "title": "Apple Music",
+                    "url": "https://music.apple.com",
+                    "parentId": "52",
+                    "index": 3
+                  }
+                ]
               },
               {
                 "dateAdded": 1704067200000,
-                "id": "142",
-                "title": "测试超长标题：人工智能(AI)正在改变我们的生活方式，从智能助手到自动驾驶，从医疗诊断到金融分析，AI技术正在各个领域发挥越来越重要的作用",
-                "url": "https://midjourney.com",
-                "parentId": "14",
+                "id": "500",
+                "title": "豆瓣电影",
+                "url": "https://movie.douban.com",
+                "parentId": "50",
                 "index": 2
               }
             ]
           },
           {
             "dateAdded": 1704067200000,
-            "id": "15",
-            "title": "常用网站",
+            "id": "60",
+            "title": "🛒 购物电商",
             "parentId": "1",
             "index": 5,
             "dateGroupModified": 1704067200000,
             "children": [
               {
                 "dateAdded": 1704067200000,
-                "id": "150",
-                "title": "谷歌",
-                "url": "https://google.com",
-                "parentId": "15",
+                "id": "600",
+                "title": "淘宝",
+                "url": "https://taobao.com",
+                "parentId": "60",
                 "index": 0
               },
               {
                 "dateAdded": 1704067200000,
-                "id": "151",
-                "title": "百度一下，你就知道 - 全球最大的中文搜索引擎",
-                "url": "https://baidu.com",
-                "parentId": "15",
+                "id": "601",
+                "title": "京东",
+                "url": "https://jd.com",
+                "parentId": "60",
                 "index": 1
               },
               {
                 "dateAdded": 1704067200000,
-                "id": "152",
-                "title": "知乎 - 有问题，就会有答案 - 中文互联网高质量的问答社区和创作者聚集的原创内容平台",
-                "url": "https://zhihu.com",
-                "parentId": "15",
+                "id": "602",
+                "title": "拼多多",
+                "url": "https://pinduoduo.com",
+                "parentId": "60",
                 "index": 2
+              },
+              {
+                "dateAdded": 1704067200000,
+                "id": "603",
+                "title": "天猫",
+                "url": "https://tmall.com",
+                "parentId": "60",
+                "index": 3
+              },
+              {
+                "dateAdded": 1704067200000,
+                "id": "604",
+                "title": "苏宁易购",
+                "url": "https://suning.com",
+                "parentId": "60",
+                "index": 4
+              }
+            ]
+          },
+          {
+            "dateAdded": 1704067200000,
+            "id": "70",
+            "title": "📰 新闻资讯",
+            "parentId": "1",
+            "index": 6,
+            "dateGroupModified": 1704067200000,
+            "children": [
+              {
+                "dateAdded": 1704067200000,
+                "id": "700",
+                "title": "知乎",
+                "url": "https://zhihu.com",
+                "parentId": "70",
+                "index": 0
+              },
+              {
+                "dateAdded": 1704067200000,
+                "id": "701",
+                "title": "微博",
+                "url": "https://weibo.com",
+                "parentId": "70",
+                "index": 1
+              },
+              {
+                "dateAdded": 1704067200000,
+                "id": "702",
+                "title": "今日头条",
+                "url": "https://toutiao.com",
+                "parentId": "70",
+                "index": 2
+              },
+              {
+                "dateAdded": 1704067200000,
+                "id": "703",
+                "title": "36氪",
+                "url": "https://36kr.com",
+                "parentId": "70",
+                "index": 3
+              }
+            ]
+          },
+          {
+            "dateAdded": 1704067200000,
+            "id": "80",
+            "title": "📚 学习教育",
+            "parentId": "1",
+            "index": 7,
+            "dateGroupModified": 1704067200000,
+            "children": [
+              {
+                "dateAdded": 1704067200000,
+                "id": "81",
+                "title": "在线课程",
+                "parentId": "80",
+                "index": 0,
+                "dateGroupModified": 1704067200000,
+                "children": [
+                  {
+                    "dateAdded": 1704067200000,
+                    "id": "8000",
+                    "title": "Coursera",
+                    "url": "https://coursera.org",
+                    "parentId": "81",
+                    "index": 0
+                  },
+                  {
+                    "dateAdded": 1704067200000,
+                    "id": "8001",
+                    "title": "Udemy",
+                    "url": "https://udemy.com",
+                    "parentId": "81",
+                    "index": 1
+                  },
+                  {
+                    "dateAdded": 1704067200000,
+                    "id": "8002",
+                    "title": "网易云课堂",
+                    "url": "https://study.163.com",
+                    "parentId": "81",
+                    "index": 2
+                  },
+                  {
+                    "dateAdded": 1704067200000,
+                    "id": "8003",
+                    "title": "慕课网",
+                    "url": "https://imooc.com",
+                    "parentId": "81",
+                    "index": 3
+                  },
+                  {
+                    "dateAdded": 1704067200000,
+                    "id": "8004",
+                    "title": "极客时间",
+                    "url": "https://time.geekbang.org",
+                    "parentId": "81",
+                    "index": 4
+                  }
+                ]
+              },
+              {
+                "dateAdded": 1704067200000,
+                "id": "82",
+                "title": "技术文档",
+                "parentId": "80",
+                "index": 1,
+                "dateGroupModified": 1704067200000,
+                "children": [
+                  {
+                    "dateAdded": 1704067200000,
+                    "id": "8010",
+                    "title": "MDN",
+                    "url": "https://developer.mozilla.org",
+                    "parentId": "82",
+                    "index": 0
+                  },
+                  {
+                    "dateAdded": 1704067200000,
+                    "id": "8011",
+                    "title": "W3Schools",
+                    "url": "https://w3schools.com",
+                    "parentId": "82",
+                    "index": 1
+                  },
+                  {
+                    "dateAdded": 1704067200000,
+                    "id": "8012",
+                    "title": "菜鸟教程",
+                    "url": "https://runoob.com",
+                    "parentId": "82",
+                    "index": 2
+                  }
+                ]
+              },
+              {
+                "dateAdded": 1704067200000,
+                "id": "800",
+                "title": "LeetCode",
+                "url": "https://leetcode.cn",
+                "parentId": "80",
+                "index": 2
+              },
+              {
+                "dateAdded": 1704067200000,
+                "id": "801",
+                "title": "力扣",
+                "url": "https://leetcode.com",
+                "parentId": "80",
+                "index": 3
+              }
+            ]
+          },
+          {
+            "dateAdded": 1704067200000,
+            "id": "90",
+            "title": "🔧 实用工具",
+            "parentId": "1",
+            "index": 8,
+            "dateGroupModified": 1704067200000,
+            "children": [
+              {
+                "dateAdded": 1704067200000,
+                "id": "91",
+                "title": "翻译工具",
+                "parentId": "90",
+                "index": 0,
+                "dateGroupModified": 1704067200000,
+                "children": [
+                  {
+                    "dateAdded": 1704067200000,
+                    "id": "9000",
+                    "title": "DeepL",
+                    "url": "https://deepl.com",
+                    "parentId": "91",
+                    "index": 0
+                  },
+                  {
+                    "dateAdded": 1704067200000,
+                    "id": "9001",
+                    "title": "Google翻译",
+                    "url": "https://translate.google.com",
+                    "parentId": "91",
+                    "index": 1
+                  },
+                  {
+                    "dateAdded": 1704067200000,
+                    "id": "9002",
+                    "title": "百度翻译",
+                    "url": "https://fanyi.baidu.com",
+                    "parentId": "91",
+                    "index": 2
+                  },
+                  {
+                    "dateAdded": 1704067200000,
+                    "id": "9003",
+                    "title": "有道翻译",
+                    "url": "https://fanyi.youdao.com",
+                    "parentId": "91",
+                    "index": 3
+                  }
+                ]
+              },
+              {
+                "dateAdded": 1704067200000,
+                "id": "92",
+                "title": "开发者工具",
+                "parentId": "90",
+                "index": 1,
+                "dateGroupModified": 1704067200000,
+                "children": [
+                  {
+                    "dateAdded": 1704067200000,
+                    "id": "9010",
+                    "title": "JSON格式化",
+                    "url": "https://json.cn",
+                    "parentId": "92",
+                    "index": 0
+                  },
+                  {
+                    "dateAdded": 1704067200000,
+                    "id": "9011",
+                    "title": "正则测试",
+                    "url": "https://regex101.com",
+                    "parentId": "92",
+                    "index": 1
+                  },
+                  {
+                    "dateAdded": 1704067200000,
+                    "id": "9012",
+                    "title": "Code Beautify",
+                    "url": "https://codebeautify.org",
+                    "parentId": "92",
+                    "index": 2
+                  }
+                ]
+              },
+              {
+                "dateAdded": 1704067200000,
+                "id": "900",
+                "title": "TinyPNG",
+                "url": "https://tinypng.com",
+                "parentId": "90",
+                "index": 2
+              },
+              {
+                "dateAdded": 1704067200000,
+                "id": "901",
+                "title": "Remove.bg",
+                "url": "https://remove.bg",
+                "parentId": "90",
+                "index": 3
+              }
+            ]
+          },
+          {
+            "dateAdded": 1704067200000,
+            "id": "99",
+            "title": "常用网站",
+            "parentId": "1",
+            "index": 9,
+            "dateGroupModified": 1704067200000,
+            "children": [
+              {
+                "dateAdded": 1704067200000,
+                "id": "990",
+                "title": "Google",
+                "url": "https://google.com",
+                "parentId": "99",
+                "index": 0
+              },
+              {
+                "dateAdded": 1704067200000,
+                "id": "991",
+                "title": "百度",
+                "url": "https://baidu.com",
+                "parentId": "99",
+                "index": 1
               }
             ]
           }
