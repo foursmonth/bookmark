@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "书签管理器",
   "description": "书签管理器",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "permissions": [
     "bookmarks",
     "storage",
