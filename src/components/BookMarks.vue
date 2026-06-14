@@ -202,7 +202,7 @@
 import FlatNodeRow from '@/components/FlatNodeRow.vue'
 import { BookmarkSetting, TreeNode, ChromeTreeNode, FlatNode, ColumnData, DropPosition, DropTarget, DragState } from '@/common/type'
 import { TREE_INDENT_WIDTH, DROP_ZONE_COLUMN_RATIO, MAX_DRAG_PREVIEW_CHILDREN, DRAG_PREVIEW_INDENT_WIDTH } from '@/common/constants'
-import { getTreeNodeIds, buildTreeNode, dfsSearch, flattenTree, isDescendant, getVisibleChildren } from '@/common/treeUtil'
+import { getTreeNodeIds, buildTreeNode, dfsSearch, flattenTree, isDescendant, getVisibleChildren, isDefaultExpandByDepth } from '@/common/treeUtil'
 import { getBookmarkTree, getLocalStorage, setLocalStorage, updateBookmark, removeBookmark, createBookmark, moveBookmark } from '@/common/chromeUtil'
 import { intersectionToTarget, debounce } from '@/common/util'
 import { NGrid, NGridItem, NSpace, NDrawer, NDrawerContent, NButton, NIcon, NInputNumber, NInput, NSwitch, NModal, NDropdown, NCollapseTransition, NAlert, NSpin, NEmpty } from 'naive-ui'
@@ -422,7 +422,23 @@ function handleEdit(node: FlatNode) {
   })
 }
 
-function handleToggle() {
+function handleToggle(node: FlatNode) {
+  const rawNode = node.raw
+  const newExpandState = !rawNode.isExpand
+
+  // 切换展开状态
+  rawNode.isExpand = newExpandState
+
+  // 更新设置中的展开/折叠记录
+  // 使用 isDefaultExpandByDepth 判断节点属于哪个类别（不考虑用户之前的操作）
+  if (isDefaultExpandByDepth(bookmarkSetting, rawNode.deep)) {
+    // 默认应展开的节点：折叠时加入 unExpandIds，展开时移除
+    newExpandState ? bookmarkSetting.unExpandIds.delete(rawNode.id) : bookmarkSetting.unExpandIds.add(rawNode.id)
+  } else {
+    // 默认应折叠的节点：展开时加入 expandIds，折叠时移除
+    newExpandState ? bookmarkSetting.expandIds.add(rawNode.id) : bookmarkSetting.expandIds.delete(rawNode.id)
+  }
+
   rebuildColumns()
   persistSetting()
 }

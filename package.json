@@ -12,10 +12,8 @@
     "caniuse-lite": "^1.0.30001797",
     "copy-webpack-plugin": "^11.0.0",
     "core-js": "^3.8.3",
-    "mockjs": "^1.1.0",
     "naive-ui": "^2.34.3",
     "vue": "^3.2.13",
-    "vue-class-component": "^8.0.0-0",
     "vue-draggable-plus": "^0.6.1"
   },
   "devDependencies": {

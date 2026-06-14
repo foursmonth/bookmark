@@ -6,18 +6,9 @@
   </n-dialog-provider>
 </template>
 
-<script lang="ts">
-import { Options, Vue } from 'vue-class-component';
-import { NDialogProvider, NMessageProvider } from 'naive-ui';
+<script lang="ts" setup>
+import { NDialogProvider, NMessageProvider } from 'naive-ui'
 import BookMarks from '@/components/BookMarks.vue'
-@Options({
-  components: {
-    BookMarks,
-    NDialogProvider,
-    NMessageProvider
-  },
-})
-export default class App extends Vue { }
 </script>
 
 <style>

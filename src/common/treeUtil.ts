@@ -7,11 +7,16 @@ export function getTreeNodeIds(root: TreeNode): string[] {
     return ids
 }
 
-export function isShouldDefaultExpand(bookmarkSetting: BookmarkSetting, node: TreeNode): boolean {
-    return _isShouldDefaultExpand(bookmarkSetting, node.id, node.deep)
+export function shouldBeExpanded(bookmarkSetting: BookmarkSetting, node: TreeNode): boolean {
+    return _shouldBeExpanded(bookmarkSetting, node.id, node.deep)
 }
 
-function _isShouldDefaultExpand(bookmarkSetting: BookmarkSetting, id: string, deep: number): boolean {
+// 只根据深度判断默认展开状态，不考虑用户手动操作
+export function isDefaultExpandByDepth(bookmarkSetting: BookmarkSetting, deep: number): boolean {
+    return deep <= bookmarkSetting.expandDeep
+}
+
+function _shouldBeExpanded(bookmarkSetting: BookmarkSetting, id: string, deep: number): boolean {
     if (bookmarkSetting.expandIds.has(id)) return true
     if (bookmarkSetting.unExpandIds.has(id)) return false
     return deep <= bookmarkSetting.expandDeep
@@ -29,7 +34,7 @@ export function buildTreeNode(rowData: ChromeTreeNode, bookmarkSetting: Bookmark
         index: rowData.index ?? 0,
         children: children,
         isLeaf: !!rowData.url,
-        isExpand: _isShouldDefaultExpand(bookmarkSetting, rowData.id, deep),
+        isExpand: _shouldBeExpanded(bookmarkSetting, rowData.id, deep),
         isSearchResult: false,
         icon: getIconUrl(rowData.url),
         deep: deep

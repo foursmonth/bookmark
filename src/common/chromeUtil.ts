@@ -1,8 +1,8 @@
 import { ChromeTreeNode } from '@/common/type'
-import { isPord } from '@/common/envUtil'
+import { isProd } from '@/common/envUtil'
 
 export function getIconUrl(pageUrl: string | undefined): string {
-    if (!isPord() || !pageUrl) {
+    if (!isProd() || !pageUrl) {
         return ''
     }
     const urlTemplate = chrome.runtime.getURL('/_favicon/')
@@ -10,7 +10,7 @@ export function getIconUrl(pageUrl: string | undefined): string {
 }
 
 export function openBookmark(url: string): void {
-    if (isPord()) {
+    if (isProd()) {
         chrome.tabs.create({ url })
     } else {
         window.open(url, '_blank')
@@ -18,7 +18,7 @@ export function openBookmark(url: string): void {
 }
 
 export function updateBookmark(id: string, changes: { title?: string; url?: string }): Promise<ChromeTreeNode> {
-    if (isPord()) {
+    if (isProd()) {
         return chrome.bookmarks.update(id, changes)
     }
     return Promise.resolve({
@@ -33,7 +33,7 @@ export function updateBookmark(id: string, changes: { title?: string; url?: stri
 }
 
 export function removeBookmark(id: string, isFolder: boolean): Promise<void> {
-    if (isPord()) {
+    if (isProd()) {
         if (isFolder) {
             return chrome.bookmarks.removeTree(id)
         } else {
@@ -44,7 +44,7 @@ export function removeBookmark(id: string, isFolder: boolean): Promise<void> {
 }
 
 export function createBookmark(parentId: string, title: string, url?: string, index?: number): Promise<ChromeTreeNode> {
-    if (isPord()) {
+    if (isProd()) {
         return chrome.bookmarks.create({
             parentId: parentId,
             title: title,
@@ -64,7 +64,7 @@ export function createBookmark(parentId: string, title: string, url?: string, in
 }
 
 export function moveBookmark(id: string, parentId: string, index?: number): Promise<ChromeTreeNode> {
-    if (isPord()) {
+    if (isProd()) {
         return chrome.bookmarks.move(id, { parentId, index })
     }
     return Promise.resolve({
@@ -79,7 +79,7 @@ export function moveBookmark(id: string, parentId: string, index?: number): Prom
 }
 
 export function getBookmarkTree(): Promise<ChromeTreeNode[]> {
-    if (isPord()) {
+    if (isProd()) {
         return chrome.bookmarks.getTree()
     }
     
@@ -90,7 +90,7 @@ export function getBookmarkTree(): Promise<ChromeTreeNode[]> {
 }
 
 export function getLocalStorage(key: string): Promise<string> {
-    if (isPord()) {
+    if (isProd()) {
         return chrome.storage.local.get(key).then((value: Record<string, unknown>) => {
             return (value[key] as string) || '{}'
         })
@@ -100,7 +100,7 @@ export function getLocalStorage(key: string): Promise<string> {
 
 export function setLocalStorage(key: string, value: unknown): void {
     const data = JSON.stringify(value)
-    if (isPord()) {
+    if (isProd()) {
         chrome.storage.local.set({ [key]: data })
     } else {
         localStorage.setItem(key, data)
@@ -108,7 +108,7 @@ export function setLocalStorage(key: string, value: unknown): void {
 }
 
 export function clearLocalStorage(): void {
-    if (isPord()) {
+    if (isProd()) {
         chrome.storage.local.clear()
     } else {
         localStorage.clear()

@@ -66,7 +66,6 @@
 import { NImage, NButton, NIcon, NEllipsis } from 'naive-ui'
 import { FlatNode, BookmarkSetting } from '@/common/type'
 import { TREE_INDENT_WIDTH } from '@/common/constants'
-import { isShouldDefaultExpand } from '@/common/treeUtil'
 import { openBookmark } from '@/common/chromeUtil'
 import { PropType } from 'vue'
 
@@ -98,17 +97,6 @@ function handleClick() {
 
 function toggleExpand() {
   if (props.flatNode.isLeaf) return
-
-  props.flatNode.raw.isExpand = !props.flatNode.raw.isExpand
-  props.flatNode.isExpand = props.flatNode.raw.isExpand
-
-  const node = props.flatNode.raw
-  if (isShouldDefaultExpand(props.bookmarkSetting, node)) {
-    node.isExpand ? props.bookmarkSetting.unExpandIds.delete(node.id) : props.bookmarkSetting.unExpandIds.add(node.id)
-  } else {
-    node.isExpand ? props.bookmarkSetting.expandIds.delete(node.id) : props.bookmarkSetting.expandIds.add(node.id)
-  }
-
   emit('toggle', props.flatNode)
 }
 
