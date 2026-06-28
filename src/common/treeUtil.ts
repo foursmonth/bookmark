@@ -11,15 +11,8 @@ export function shouldBeExpanded(bookmarkSetting: BookmarkSetting, node: TreeNod
     return _shouldBeExpanded(bookmarkSetting, node.id, node.deep)
 }
 
-// 只根据深度判断默认展开状态，不考虑用户手动操作
-export function isDefaultExpandByDepth(bookmarkSetting: BookmarkSetting, deep: number): boolean {
-    return deep <= bookmarkSetting.expandDeep
-}
-
-function _shouldBeExpanded(bookmarkSetting: BookmarkSetting, id: string, deep: number): boolean {
-    if (bookmarkSetting.expandIds.has(id)) return true
-    if (bookmarkSetting.unExpandIds.has(id)) return false
-    return deep <= bookmarkSetting.expandDeep
+function _shouldBeExpanded(bookmarkSetting: BookmarkSetting, id: string, _deep: number): boolean {
+    return !bookmarkSetting.unExpandIds.has(id)
 }
 
 export function buildTreeNode(rowData: ChromeTreeNode, bookmarkSetting: BookmarkSetting, deep: number): TreeNode {

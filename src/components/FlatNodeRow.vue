@@ -117,6 +117,7 @@ function handleContextMenu(e: MouseEvent) {
   transition: background-color 0.2s ease, outline 0.15s ease;
   cursor: default;
   position: relative;
+  overflow: hidden;
 }
 
 .content-area {

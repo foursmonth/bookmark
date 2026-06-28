@@ -11,9 +11,9 @@ export function getIconUrl(pageUrl: string | undefined): string {
 
 export function openBookmark(url: string): void {
     if (isProd()) {
-        chrome.tabs.create({ url })
+        chrome.tabs.update({ url })
     } else {
-        window.open(url, '_blank')
+        window.location.href = url
     }
 }
 

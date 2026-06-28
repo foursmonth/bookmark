@@ -1,5 +1,3 @@
-import { DEFAULT_SHOW_COLUMNS, DEFAULT_EXPAND_DEEP } from './constants'
-
 export interface TreeNode {
     id: string
     parentId: string
@@ -56,19 +54,13 @@ export interface DragState {
 export class BookmarkSetting {
     editMode: boolean
     showColumns: number
-    expandDeep: number
-    expandIds: Set<string>
     unExpandIds: Set<string>
 
     constructor(
         showColumns: number | null | undefined,
-        expandDeep: number | null | undefined,
-        unExpandId: Set<string> | null | undefined,
-        expandIds: Set<string> | null | undefined
+        unExpandId: Set<string> | null | undefined
     ) {
-        this.showColumns = showColumns && showColumns > 0 ? showColumns : DEFAULT_SHOW_COLUMNS
-        this.expandDeep = expandDeep && expandDeep >= 0 ? expandDeep : DEFAULT_EXPAND_DEEP
-        this.expandIds = expandIds || new Set()
+        this.showColumns = showColumns && showColumns > 0 ? showColumns : 4
         this.unExpandIds = unExpandId || new Set()
         this.editMode = false
     }
@@ -76,8 +68,6 @@ export class BookmarkSetting {
     toJSON() {
         return {
             showColumns: this.showColumns,
-            expandDeep: this.expandDeep,
-            expandIds: Array.from(this.expandIds),
             unExpandId: Array.from(this.unExpandIds)
         }
     }
@@ -87,9 +77,7 @@ export class BookmarkSetting {
             const jsonObject = JSON.parse(jsonString)
             return new BookmarkSetting(
                 jsonObject.showColumns,
-                jsonObject.expandDeep,
-                new Set(jsonObject.unExpandId),   // unExpandId → 第3个参数
-                new Set(jsonObject.expandIds)    // expandIds → 第4个参数
+                new Set(jsonObject.unExpandId)
             )
         } catch (err) {
             console.error('parse BookmarkSetting error:', err)
@@ -100,8 +88,6 @@ export class BookmarkSetting {
     copy(other: BookmarkSetting) {
         this.editMode = other.editMode
         this.showColumns = other.showColumns
-        this.expandDeep = other.expandDeep
-        this.expandIds = other.expandIds
         this.unExpandIds = other.unExpandIds
     }
 }

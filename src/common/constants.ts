@@ -9,7 +9,3 @@ export const DROP_ZONE_COLUMN_RATIO = 0.75 // Right 25% triggers column-end drop
 
 // Drag preview limits
 export const MAX_DRAG_PREVIEW_CHILDREN = 8
-
-// Default settings
-export const DEFAULT_SHOW_COLUMNS = 4
-export const DEFAULT_EXPAND_DEEP = 4
