@@ -1,9 +1,9 @@
 <template>
   <div
     class="flat-node-row"
-    :style="{ paddingLeft: flatNode.deep * TREE_INDENT_WIDTH + 'px' }"
     @contextmenu="handleContextMenu"
   >
+    <div class="indent-spacer" :style="{ width: Math.max(0, flatNode.deep - 1) * TREE_INDENT_WIDTH + 'px' }"></div>
     <div class="indent-area">
       <div
         v-for="n in flatNode.deep"
@@ -16,7 +16,7 @@
           'ancestor-is-last': flatNode.ancestorLastFlags[n - 1],
           'is-top-level': n === 1
         }"
-        :style="{ left: (n - 1) * TREE_INDENT_WIDTH + 'px' }"
+        :style="{ left: Math.max(0, n - 2) * TREE_INDENT_WIDTH + 'px' }"
       ></div>
     </div>
     <div class="icon-area">
@@ -48,7 +48,7 @@
         quaternary
         :style="{
           'justify-content': 'left',
-          'padding': '0 4px',
+          'padding': '0',
           'overflow': 'hidden',
           'background-color': flatNode.isSearchResult ? '#ecc646' : 'inherit'
         }"
@@ -113,6 +113,7 @@ function handleContextMenu(e: MouseEvent) {
   display: flex;
   align-items: center;
   width: 100%;
+  box-sizing: border-box;
   border-radius: 4px;
   transition: background-color 0.2s ease, outline 0.15s ease;
   cursor: default;
@@ -148,6 +149,10 @@ function handleContextMenu(e: MouseEvent) {
   top: 0;
   height: 100%;
   pointer-events: none;
+}
+
+.indent-spacer {
+  flex-shrink: 0;
 }
 
 .icon-area {

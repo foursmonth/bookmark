@@ -42,7 +42,7 @@
   </template>
 
   <div v-else class="bookmark-grid-container">
-    <n-grid :cols="bookmarkSetting.showColumns" :x-gap="16" :y-gap="16">
+    <n-grid :cols="bookmarkSetting.showColumns" :x-gap="12" :y-gap="12">
       <n-grid-item v-for="col in columns" :key="col.rootId" span="1">
         <div 
           class="bookmark-column"
@@ -897,7 +897,7 @@ onBeforeUnmount(() => {
 
 <style scoped>
 .app-container {
-  padding: 0 12px;
+  padding: 0;
 }
 
 .bookmark-grid-container {
@@ -916,7 +916,6 @@ onBeforeUnmount(() => {
 }
 
 .bookmark-column {
-  padding: 16px 0;
   border: none;
   border-radius: 8px;
   position: relative;

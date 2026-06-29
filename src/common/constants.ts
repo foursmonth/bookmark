@@ -1,5 +1,5 @@
 // Tree indentation width (px)
-export const TREE_INDENT_WIDTH = 20
+export const TREE_INDENT_WIDTH = 16
 
 // Drag preview indentation width (px)
 export const DRAG_PREVIEW_INDENT_WIDTH = 16
