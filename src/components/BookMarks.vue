@@ -44,66 +44,75 @@
   <div v-else class="bookmark-grid-container">
     <n-grid :cols="bookmarkSetting.showColumns" :x-gap="12" :y-gap="12">
       <n-grid-item v-for="col in columns" :key="col.rootId" span="1">
-        <div 
-          class="bookmark-column"
-          :data-col-id="col.rootId"
-          :class="{
-            'dragging-in-progress': dragState.active,
-            'drop-column-end': dragState.active && dragState.dropTarget?.type === 'column-end' && dragState.dropTarget.colId === col.rootId
-          }"
-        >
-          <VueDraggable
-            v-model="col.flatList"
-            :group="dragGroup"
-            ghost-class="drag-ghost"
-            chosen-class="drag-chosen"
-            drag-class="drag-dragging"
-            :disabled="!bookmarkSetting.editMode"
-            :animation="150"
-            :force-fallback="true"
-            :fallback-on-body="true"
-            :fallback-tolerance="3"
-            :scroll-sensitivity="60"
-            :scroll-speed="15"
-            style="min-height: 100%"
-            :on-move="onDragMove"
-            @start="onDragStart"
-            @end="onDragEnd"
+        <div class="bookmark-column-wrapper">
+          <div 
+            class="bookmark-column"
+            :data-col-id="col.rootId"
+            :class="{
+              'dragging-in-progress': dragState.active
+            }"
           >
-            <div
-              v-for="item in col.flatList"
-              :key="item.id"
-              :data-id="item.id"
-              :class="{
-                'drag-child-item': dragState.active && dragState.childIds.has(item.id),
-                'drop-target-inside': dragState.active && dragState.dropTarget?.type === 'node' && dragState.dropTarget?.id === item.id && dragState.dropTarget.position === 'inside',
-                'drop-target-below': dragState.active && dragState.dropTarget?.type === 'node' && dragState.dropTarget?.id === item.id && dragState.dropTarget.position === 'below',
-              }"
+            <VueDraggable
+              v-model="col.flatList"
+              :group="dragGroup"
+              ghost-class="drag-ghost"
+              chosen-class="drag-chosen"
+              drag-class="drag-dragging"
+              :disabled="!bookmarkSetting.editMode || isRefreshing"
+              :animation="150"
+              :force-fallback="true"
+              :fallback-on-body="true"
+              :fallback-tolerance="3"
+              :scroll-sensitivity="60"
+              :scroll-speed="15"
+              style="min-height: 100%"
+              :on-move="onDragMove"
+              @start="onDragStart"
+              @end="onDragEnd"
             >
               <div
-                v-if="dragState.active && dragState.dropTarget?.type === 'node' && dragState.dropTarget?.id === item.id && dragState.dropTarget.position === 'above'"
-                class="drop-indicator-line"
-                :style="{
-                  marginLeft: item.deep * TREE_INDENT_WIDTH + 'px',
-                  width: `calc((100% - ${item.deep * TREE_INDENT_WIDTH}px) * ${DROP_ZONE_COLUMN_RATIO})`
+                v-for="item in col.flatList"
+                :key="item.id"
+                :data-id="item.id"
+                :class="{
+                  'drag-child-item': dragState.active && dragState.childIds.has(item.id),
+                  'drop-target-inside': dragState.active && dragState.dropTarget?.type === 'node' && dragState.dropTarget?.id === item.id && dragState.dropTarget.position === 'inside',
+                  'drop-target-below': dragState.active && dragState.dropTarget?.type === 'node' && dragState.dropTarget?.id === item.id && dragState.dropTarget.position === 'below',
                 }"
-              ></div>
-              <FlatNodeRow
-                :flat-node="item"
-                :bookmark-setting="bookmarkSetting"
-                @contextmenu="handleContextMenu"
-                @toggle="handleToggle"
-              />
-              <div
-                v-if="dragState.active && dragState.dropTarget?.type === 'node' && dragState.dropTarget?.id === item.id && dragState.dropTarget.position === 'below'"
-                class="drop-indicator-line"
-                :style="{
-                  marginLeft: item.deep * TREE_INDENT_WIDTH + 'px',
-                  width: `calc((100% - ${item.deep * TREE_INDENT_WIDTH}px) * ${DROP_ZONE_COLUMN_RATIO})`
-                }"
-              ></div>
-            </div>
-          </VueDraggable>
+              >
+                <div
+                  v-if="dragState.active && dragState.dropTarget?.type === 'node' && dragState.dropTarget?.id === item.id && dragState.dropTarget.position === 'above'"
+                  class="drop-indicator-line"
+                  :style="{
+                    marginLeft: Math.max(0, item.deep - 1) * TREE_INDENT_WIDTH + 'px',
+                    width: `calc((100% - ${Math.max(0, item.deep - 1) * TREE_INDENT_WIDTH}px) * ${DROP_ZONE_COLUMN_RATIO})`
+                  }"
+                ></div>
+                <FlatNodeRow
+                  :flat-node="item"
+                  :bookmark-setting="bookmarkSetting"
+                  @contextmenu="handleContextMenu"
+                  @toggle="handleToggle"
+                />
+                <div
+                  v-if="dragState.active && dragState.dropTarget?.type === 'node' && dragState.dropTarget?.id === item.id && dragState.dropTarget.position === 'below'"
+                  class="drop-indicator-line"
+                  :style="{
+                    marginLeft: Math.max(0, item.deep - 1) * TREE_INDENT_WIDTH + 'px',
+                    width: `calc((100% - ${Math.max(0, item.deep - 1) * TREE_INDENT_WIDTH}px) * ${DROP_ZONE_COLUMN_RATIO})`
+                  }"
+                ></div>
+              </div>
+            </VueDraggable>
+          </div>
+          <div
+            v-if="dragState.active && dragState.dropTarget?.type === 'column-end' && dragState.dropTarget.colId === col.rootId"
+            class="drop-indicator-column-gap"
+          ></div>
+          <div
+            v-if="dragState.active && dragState.dropTarget?.type === 'column-start' && dragState.dropTarget.colId === col.rootId"
+            class="drop-indicator-column-gap drop-indicator-column-gap-left"
+          ></div>
         </div>
       </n-grid-item>
     </n-grid>
@@ -193,8 +202,8 @@
 <script lang="ts" setup>
 import FlatNodeRow from '@/components/FlatNodeRow.vue'
 import { BookmarkSetting, TreeNode, ChromeTreeNode, FlatNode, ColumnData, DropPosition, DropTarget, DragState } from '@/common/type'
-import { TREE_INDENT_WIDTH, DROP_ZONE_COLUMN_RATIO, MAX_DRAG_PREVIEW_CHILDREN, DRAG_PREVIEW_INDENT_WIDTH } from '@/common/constants'
-import { getTreeNodeIds, buildTreeNode, dfsSearch, flattenTree, isDescendant, getVisibleChildren } from '@/common/treeUtil'
+import { TREE_INDENT_WIDTH, DROP_ZONE_COLUMN_RATIO, COLUMN_END_ZONE_WIDTH, MAX_DRAG_PREVIEW_CHILDREN, DRAG_PREVIEW_INDENT_WIDTH } from '@/common/constants'
+import { getTreeNodeIds, buildTreeNode, dfsSearch, hasSearchMatch, setNodeExpand, flattenTree, isDescendant, getVisibleChildren } from '@/common/treeUtil'
 import { getBookmarkTree, getLocalStorage, setLocalStorage, updateBookmark, removeBookmark, createBookmark, moveBookmark } from '@/common/chromeUtil'
 import { intersectionToTarget, debounce } from '@/common/util'
 import { NGrid, NGridItem, NSpace, NDrawer, NDrawerContent, NButton, NIcon, NInputNumber, NInput, NSwitch, NModal, NDropdown, NCollapseTransition, NAlert, NSpin, NEmpty } from 'naive-ui'
@@ -267,7 +276,8 @@ const flatNodeIndex = ref<Map<string, { node: FlatNode; col: ColumnData }>>(new 
 
 const hasSearchResult = computed(() => {
   if (!searchQuery.value) return true
-  return columns.value.some(col => col.flatList.some(n => n.isSearchResult))
+  // 直接在完整树上判断，避免命中项位于被折叠的文件夹里时误报“未找到”
+  return data.value.some(hasSearchMatch)
 })
 
 function rebuildColumns() {
@@ -286,23 +296,6 @@ function rebuildColumns() {
   }
   flatNodeIndex.value = index
 }
-
-watch(bookmarkSetting.editMode, (newVal, oldVal) => {
-  if (newVal && !oldVal && dialog) {
-    dialog.warning({
-      title: '进入编辑模式',
-      content: '编辑模式下可右键编辑、拖拽排序书签。确认进入？',
-      positiveText: '确认',
-      negativeText: '取消',
-      onPositiveClick: () => {
-        // proceed
-      },
-      onNegativeClick: () => {
-        bookmarkSetting.editMode = false
-      }
-    })
-  }
-})
 
 watch(data, rebuildColumns, { deep: true })
 
@@ -428,8 +421,11 @@ function handleToggle(node: FlatNode) {
   persistSetting()
 }
 
-function refreshData() {
-  getBookmarkTree().then(treeNodes => handleBookMarksData(treeNodes, bookmarkSetting))
+function refreshData(): Promise<void> {
+  isRefreshing.value = true
+  return getBookmarkTree()
+    .then(treeNodes => handleBookMarksData(treeNodes, bookmarkSetting))
+    .finally(() => { isRefreshing.value = false })
 }
 
 async function saveEdit() {
@@ -495,6 +491,9 @@ function handleBookMarksData(result: ChromeTreeNode[], setting: BookmarkSetting)
   const newData = chromeDatas.map(item => buildTreeNode(item, setting, 1))
   data.value = newData
   loadingState.bookmarks = true
+
+  // 数据重建后 isSearchResult 会被重置，若搜索框仍有内容需重新应用搜索
+  performSearch()
 }
 
 function handleBookMarksSetting(settingData: string) {
@@ -505,8 +504,34 @@ function handleBookMarksSetting(settingData: string) {
   loadingState.settings = true
 }
 
+// 记录搜索期间为了展示命中项而临时展开的文件夹（用户原本手动收起的）
+const searchForcedExpandIds = new Set<string>()
+
+/** 还原上一轮搜索临时展开的文件夹，避免污染用户的收起状态 */
+function restoreSearchExpansion() {
+  searchForcedExpandIds.forEach(id => {
+    if (bookmarkSetting.unExpandIds.has(id)) {
+      data.value.forEach(root => setNodeExpand(root, id, false))
+    }
+  })
+  searchForcedExpandIds.clear()
+}
+
 function performSearch() {
-  data.value.forEach(son => dfsSearch(son, searchQuery.value))
+  restoreSearchExpansion()
+
+  const matchedFolderIds = new Set<string>()
+  data.value.forEach(son => dfsSearch(son, searchQuery.value, matchedFolderIds))
+
+  // 命中项位于用户手动收起的文件夹内时，临时展开其祖先路径
+  matchedFolderIds.forEach(id => {
+    if (bookmarkSetting.unExpandIds.has(id)) {
+      data.value.forEach(root => setNodeExpand(root, id, true))
+      searchForcedExpandIds.add(id)
+    }
+  })
+
+  rebuildColumns()
 }
 
 const onSearch = debounce(performSearch, 300)
@@ -546,6 +571,12 @@ const dragState = reactive<DragState>({
   dropTarget: null
 })
 
+// Track mouse position during drag for ESC cancellation
+const lastMousePos = reactive({ x: 0, y: 0 })
+
+// Guard: prevent drag operations while data is refreshing
+const isRefreshing = ref(false)
+
 function onDragStart(evt: SortableEvent) {
   // Clear any existing text/element selection
   const selection = window.getSelection()
@@ -566,6 +597,9 @@ function onDragStart(evt: SortableEvent) {
   dragState.draggedId = draggedId
   dragState.draggedNode = draggedNode
   dragState.dropTarget = null
+
+  // Listen for mouse leaving all columns to clear stale dropTarget
+  document.addEventListener('mousemove', handleDragMouseMove)
 
   // Collect visible child IDs in the flat list
   const childIds = new Set<string>()
@@ -639,8 +673,10 @@ function onDragStart(evt: SortableEvent) {
 
 function detectDropZone(
   element: HTMLElement,
-  clientX: number
-): { zone: 'node' | 'column-end'; colId: string } | null {
+  clientX: number,
+  colIndex: number,
+  showColumns: number
+): { zone: 'node' | 'column-start' | 'column-end'; colId: string } | null {
   const column = element.closest('.bookmark-column') as HTMLElement | null
   if (!column) return null
 
@@ -651,8 +687,14 @@ function detectDropZone(
   const relativeX = clientX - columnRect.left
   const distanceToRightEdge = columnRect.width - relativeX
 
-  // Fixed 50px zone from right edge triggers column-end
-  if (distanceToRightEdge <= 50) {
+  // Left edge zone triggers column-start, but only for the first column in each row
+  const isFirstInRow = colIndex % showColumns === 0
+  if (isFirstInRow && relativeX <= COLUMN_END_ZONE_WIDTH) {
+    return { zone: 'column-start', colId }
+  }
+
+  // Right edge zone triggers column-end
+  if (distanceToRightEdge <= COLUMN_END_ZONE_WIDTH) {
     return { zone: 'column-end', colId }
   }
 
@@ -665,12 +707,29 @@ function moveToColumnEdge(draggedId: string, dropTarget: DropTarget) {
 
   const parentId = targetCol.treeNode.parentId
   const colIndex = targetCol.treeNode.index
-  // column-end means insert after this column
-  const newIndex = colIndex + 1
+  const draggedNode = dragState.draggedNode
+
+  // column-start: insert before target column; column-end: insert after
+  let newIndex: number
+  if (dropTarget.type === 'column-start') {
+    newIndex = colIndex
+  } else {
+    newIndex = colIndex + 1
+  }
+
+  // If dragging from same parent and source was before target, removal shifts index down by 1
+  if (draggedNode && draggedNode.parentId === parentId && draggedNode.raw.index < newIndex) {
+    newIndex -= 1
+  }
+
+  // Skip if position hasn't changed
+  if (draggedNode && draggedNode.parentId === parentId && draggedNode.raw.index === newIndex) {
+    return true
+  }
 
   moveBookmark(draggedId, parentId, newIndex)
-    .then(() => {
-      refreshData()
+    .then(async () => {
+      await refreshData()
       persistSetting()
     })
     .catch((error) => {
@@ -690,7 +749,7 @@ function computeDropPosition(
   const rect = relatedEl.getBoundingClientRect()
   const relativeY = (mouseY - rect.top) / rect.height
 
-  // Mouse above element — not a valid drop target (column top padding area)
+  // Mouse above element - not a valid drop target (column top padding area)
   if (relativeY < 0) return null
 
   if (relatedNode.isLeaf) {
@@ -704,6 +763,96 @@ function computeDropPosition(
   return 'inside'
 }
 
+/**
+ * Given the current mouse Y position, find which row element in the column
+ * the mouse is actually hovering over. This is more reliable than SortableJS's
+ * evt.related which can be ambiguous at row boundaries when adjacent rows have
+ * different depths.
+ */
+function findRowAtY(
+  colEl: HTMLElement,
+  mouseY: number
+): { el: HTMLElement; id: string } | null {
+  const rows = colEl.querySelectorAll<HTMLElement>('[data-id]')
+  for (const row of rows) {
+    // Skip hidden child items (display:none during drag)
+    if (row.classList.contains('drag-child-item')) continue
+    const rect = row.getBoundingClientRect()
+    if (rect.height === 0) continue
+    // Strictly return only the row whose rect contains mouseY
+    if (mouseY >= rect.top && mouseY <= rect.bottom) {
+      return { el: row, id: row.getAttribute('data-id')! }
+    }
+  }
+  return null
+}
+
+/**
+ * Core drop target computation: given mouse coordinates and the dragged node id,
+ * determine the appropriate DropTarget. Shared by onDragMove and handleDragMouseMove
+ * so the indicator stays in sync even when SortableJS doesn't fire onMove.
+ */
+function computeDropTarget(clientX: number, clientY: number, draggedId: string): void {
+  // Find which column the mouse is in by checking bounding rects of all columns
+  // This is more reliable than document.elementFromPoint, which fails when the
+  // mouse is outside the column's content area (e.g. at the padding/gap area).
+  let colEl: HTMLElement | null = null
+  let colId: string | null = null
+  for (const col of columns.value) {
+    const el = document.querySelector(`.bookmark-column[data-col-id="${col.rootId}"]`) as HTMLElement | null
+    if (!el) continue
+    const rect = el.getBoundingClientRect()
+    // Expand hit area by the column-end zone width so we can detect
+    // column-start/end even when the mouse is in the gap between columns
+    if (clientX >= rect.left - COLUMN_END_ZONE_WIDTH && clientX <= rect.right + COLUMN_END_ZONE_WIDTH &&
+        clientY >= rect.top && clientY <= rect.bottom) {
+      colEl = el
+      colId = col.rootId
+      break
+    }
+  }
+  if (!colEl || !colId) {
+    dragState.dropTarget = null
+    return
+  }
+
+  // Node-level detection takes priority over column edge detection.
+  const rowHit = findRowAtY(colEl, clientY)
+  if (rowHit && rowHit.id !== draggedId) {
+    const relatedEntry = flatNodeIndex.value.get(rowHit.id)
+    if (relatedEntry) {
+      const relatedNode = relatedEntry.node
+      const targetFlatList = relatedEntry.col.flatList
+
+      // Prevent dropping into own subtree (cycle)
+      const draggedEntry = flatNodeIndex.value.get(draggedId)
+      const draggedInSameCol = draggedEntry?.col === relatedEntry.col
+      const draggedFlatIndex = draggedInSameCol && draggedEntry ? draggedEntry.node.flatIndex : undefined
+      if (!isDescendant(targetFlatList, draggedId, rowHit.id, draggedFlatIndex)) {
+        const position = computeDropPosition(rowHit.el, clientY, relatedNode)
+        if (position) {
+          dragState.dropTarget = { type: 'node', id: rowHit.id, position, colId: relatedEntry.col.rootId }
+          return
+        }
+      }
+    }
+  }
+
+  // Mouse is not on a valid row - check column edges
+  const colIndex = columns.value.findIndex(c => c.rootId === colId)
+  const result = detectDropZone(colEl, clientX, colIndex, bookmarkSetting.showColumns)
+  if (result?.zone === 'column-start') {
+    dragState.dropTarget = { type: 'column-start', colId: result.colId }
+    return
+  }
+  if (result?.zone === 'column-end') {
+    dragState.dropTarget = { type: 'column-end', colId: result.colId }
+    return
+  }
+
+  dragState.dropTarget = null
+}
+
 function onDragMove(evt: {
   dragged: HTMLElement
   related: HTMLElement
@@ -711,61 +860,20 @@ function onDragMove(evt: {
   from: HTMLElement
   originalEvent?: Event
 }): boolean | -1 {
-  const draggedId = evt.dragged.getAttribute('data-id')
-  const relatedId = evt.related.getAttribute('data-id')
-
-  if (!draggedId || !relatedId || draggedId === relatedId) {
-    dragState.dropTarget = null
-    return true
-  }
-
-  // Check if mouse is near column right edge (X-direction)
+  // Track mouse position for ESC cancellation
   const originalEvt = evt.originalEvent as MouseEvent | undefined
   if (originalEvt) {
-    const result = detectDropZone(evt.to, originalEvt.clientX)
-    if (result?.zone === 'column-end') {
-      if (dragState.dropTarget?.type !== 'column-end' || dragState.dropTarget.colId !== result.colId) {
-        dragState.dropTarget = { type: 'column-end', colId: result.colId }
-      }
-      return true
-    }
-    
+    lastMousePos.x = originalEvt.clientX
+    lastMousePos.y = originalEvt.clientY
   }
 
-  // Fast O(1) lookup via flatNodeIndex
-  const relatedEntry = flatNodeIndex.value.get(relatedId)
-  if (!relatedEntry) {
-    dragState.dropTarget = null
-    return true
-  }
-  const relatedNode = relatedEntry.node
-  const targetFlatList = relatedEntry.col.flatList
-
-  // Prevent dropping into own subtree (cycle)
-  const draggedEntry = flatNodeIndex.value.get(draggedId)
-  const draggedInSameCol = draggedEntry?.col === relatedEntry.col
-  const draggedFlatIndex = draggedInSameCol && draggedEntry ? draggedEntry.node.flatIndex : undefined
-  if (isDescendant(targetFlatList, draggedId, relatedId, draggedFlatIndex)) {
+  const draggedId = evt.dragged.getAttribute('data-id')
+  if (!draggedId) {
     dragState.dropTarget = null
     return false
   }
 
-  // Can't drop inside a leaf
-  if (dragState.draggedId === relatedId) {
-    dragState.dropTarget = null
-    return true
-  }
-
-  // Compute drop position from mouse Y
-  const mouseY = (evt.originalEvent as MouseEvent)?.clientY ?? 0
-  const position = computeDropPosition(evt.related, mouseY, relatedNode)
-
-  if (!position) {
-    dragState.dropTarget = null
-    return true
-  }
-
-  dragState.dropTarget = { type: 'node', id: relatedId, position, colId: relatedEntry.col.rootId }
+  computeDropTarget(originalEvt?.clientX ?? 0, originalEvt?.clientY ?? 0, draggedId)
 
   // Return false to prevent SortableJS from reordering DOM (we handle all moves in onDragEnd)
   return false
@@ -793,14 +901,21 @@ function onDragEnd(evt: SortableEvent) {
   const dropTarget = dragState.dropTarget
   const draggedNode = dragState.draggedNode
 
-  // Handle column-end — insert as sibling column after
+  // Handle column-end - insert as sibling column after
   if (dropTarget?.type === 'column-end') {
     moveToColumnEdge(draggedId, dropTarget)
     resetDragState()
     return
   }
 
-  // Handle node-level drop — target column and position known from dropTarget
+  // Handle column-start - insert as sibling column before
+  if (dropTarget?.type === 'column-start') {
+    moveToColumnEdge(draggedId, dropTarget)
+    resetDragState()
+    return
+  }
+
+  // Handle node-level drop - target column and position known from dropTarget
   if (dropTarget?.type === 'node') {
     const targetCol = columns.value.find(c => c.rootId === dropTarget.colId)
     if (!targetCol) {
@@ -830,14 +945,22 @@ function onDragEnd(evt: SortableEvent) {
       newIndex = targetNode.raw.index + 1
     }
 
-    resetDragState()
+    // Adjust index for same-parent moves: Chrome removes the node first, shifting indices down
+    if (draggedNode.parentId === newParentId && draggedNode.raw.index < newIndex) {
+      newIndex -= 1
+    }
 
     // Skip if position hasn't actually changed
-    if (newParentId === draggedNode.parentId && newIndex === draggedNode.raw.index) return
+    if (newParentId === draggedNode.parentId && newIndex === draggedNode.raw.index) {
+      resetDragState()
+      return
+    }
+
+    resetDragState()
 
     moveBookmark(draggedId, newParentId, newIndex)
-      .then(() => {
-        refreshData()
+      .then(async () => {
+        await refreshData()
         persistSetting()
       })
       .catch((error) => {
@@ -848,40 +971,78 @@ function onDragEnd(evt: SortableEvent) {
     return
   }
 
-  // No dropTarget → append to the column where dragover ended
-  const toContainer = evt.to as HTMLElement
-  const colId = toContainer.closest?.('[data-col-id]')?.getAttribute('data-col-id')
-  const targetCol = colId ? columns.value.find(c => c.rootId === colId) : null
+  // No valid drop target - append to the column under the mouse cursor
+  const targetCol = (() => {
+    const el = document.elementFromPoint(lastMousePos.x, lastMousePos.y)
+    const colEl = el?.closest('.bookmark-column') as HTMLElement | null
+    if (!colEl) return null
+    const colId = colEl.getAttribute('data-col-id')
+    return colId ? columns.value.find(c => c.rootId === colId) : null
+  })()
+
   if (!targetCol) {
+    // Mouse outside all columns - cancel the drag
     resetDragState()
     refreshData()
     return
   }
-  moveBookmark(draggedId, targetCol.treeNode.id, targetCol.treeNode.children.length)
-    .then(() => { refreshData(); persistSetting() })
+
+  const newParentId = targetCol.treeNode.id
+  const newIndex = targetCol.treeNode.children.length
+
+  // Skip if position hasn't changed
+  if (newParentId === draggedNode.parentId && newIndex === draggedNode.raw.index) {
+    resetDragState()
+    return
+  }
+
+  resetDragState()
+
+  moveBookmark(draggedId, newParentId, newIndex)
+    .then(async () => {
+      await refreshData()
+      persistSetting()
+    })
     .catch((error) => {
       console.error('Failed to move bookmark:', error)
       message.error(`移动失败: ${error instanceof Error ? error.message : '未知错误'}`)
       refreshData()
     })
-  resetDragState()
 }
 
 function resetDragState() {
+  document.removeEventListener('mousemove', handleDragMouseMove)
   dragState.active = false
   dragState.cancelled = false
   dragState.draggedId = ''
   dragState.draggedNode = null
   dragState.childIds = new Set()
   dragState.dropTarget = null
+  lastMousePos.x = 0
+  lastMousePos.y = 0
+}
+
+function handleDragMouseMove(e: MouseEvent) {
+  if (!dragState.active) return
+  lastMousePos.x = e.clientX
+  lastMousePos.y = e.clientY
+  // Recompute drop target on every mousemove so the indicator stays in sync
+  // even when SortableJS doesn't fire onMove (e.g. moving within the same row)
+  if (dragState.draggedId) {
+    computeDropTarget(e.clientX, e.clientY, dragState.draggedId)
+  }
 }
 
 function handleEscKey(e: KeyboardEvent) {
   if (e.key === 'Escape' && dragState.active) {
     dragState.cancelled = true
     message.info('拖拽已取消')
-    // Force end the drag by dispatching a mouseup event
-    document.dispatchEvent(new MouseEvent('mouseup', { bubbles: true }))
+    // Force end the drag by dispatching a mouseup event at last known position
+    document.dispatchEvent(new MouseEvent('mouseup', {
+      bubbles: true,
+      clientX: lastMousePos.x,
+      clientY: lastMousePos.y
+    }))
   }
 }
 
@@ -903,6 +1064,8 @@ onBeforeUnmount(() => {
 .bookmark-grid-container {
   margin-top: 4px;
   overflow: hidden;
+  padding-left: 12px;
+  padding-right: 12px;
 }
 
 .bookmark-grid-container :deep(.n-grid) {
@@ -918,9 +1081,18 @@ onBeforeUnmount(() => {
 .bookmark-column {
   border: none;
   border-radius: 8px;
-  position: relative;
+  position: static;
   min-width: 0;
   overflow: hidden;
+}
+
+.bookmark-column-wrapper {
+  position: relative;
+  height: 100%;
+}
+
+.bookmark-column.dragging-in-progress {
+  overflow: visible;
 }
 </style>
 
@@ -1062,40 +1234,22 @@ onBeforeUnmount(() => {
   margin: 0 4px 0 0;
 }
 
-/* Column drop zones - positioned at left/right edges */
-.column-drop-zone {
+/* Column gap drop indicator - positioned between columns */
+.drop-indicator-column-gap {
   position: absolute;
+  right: -7px;
   top: 0;
   bottom: 0;
-  width: 0;
-  transition: all 0.2s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  width: 3px;
+  background: #1890ff;
+  border-radius: 1.5px;
   z-index: 10;
-  overflow: hidden;
+  pointer-events: none;
 }
 
-.column-drop-zone.active {
-  width: 50px;
-  background: rgba(24, 144, 255, 0.1);
-  border: 2px dashed #1890ff;
-  border-radius: 4px;
-}
-
-.column-drop-zone.active span {
-  writing-mode: vertical-rl;
-  color: #1890ff;
-  font-size: 13px;
-}
-
-.column-drop-end {
-  right: 0;
-}
-
-/* Column highlight for drop target */
-.bookmark-column.drop-column-end {
-  border-right: 3px solid #1890ff !important;
+.drop-indicator-column-gap-left {
+  right: auto;
+  left: -7px;
 }
 
 /* During drag, force default cursor on expand icons to avoid interference */

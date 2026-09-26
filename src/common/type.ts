@@ -40,6 +40,7 @@ export type DropPosition = 'above' | 'inside' | 'below'
 
 export type DropTarget =
     | { type: 'node'; id: string; position: DropPosition; colId: string }
+    | { type: 'column-start'; colId: string }
     | { type: 'column-end'; colId: string }
 
 export interface DragState {
